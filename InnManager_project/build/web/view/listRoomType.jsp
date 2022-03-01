@@ -132,19 +132,19 @@
             <div class="table-responsive detail-container-information">
                 <table class="table detail-information">
                     <tr class="table-light">
-                        <th>Tên loại</th>
-                        <th>Giá</th>
-                        <th>Diện tích</th>
-                        <th>Số người</th>
+                        <th class="text-center">Tên loại</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Diện tích</th>
+                        <th class="text-center">Số người</th>
                         <th>&ensp;</th>
                     </tr>
                     <c:if test="${!requestScope.listRoomType.isEmpty()}">
                         <c:forEach items="${requestScope.listRoomType}" var="rt">
                     <tr>
-                        <td>${rt.name}</td>
-                        <td>${rt.price}</td>
-                        <td>${rt.area}m2</td>
-                        <td>${rt.quantity}</td>
+                        <td class="text-center">${rt.name}</td>
+                        <td class="text-center">${rt.price}</td>
+                        <td class="text-center">${rt.area}m2</td>
+                        <td class="text-center">${rt.quantity}</td>
                         <td class="column-action">
                             <a href="" class="button-link"><i class='bx bx-trash'></i></a>
                             <a href="" class="button-link"><i class='bx bx-edit'></i></a>
