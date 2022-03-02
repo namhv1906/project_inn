@@ -118,21 +118,30 @@
         </div>
     </section>
     <section class="content-section">
+        <c:if test="${requestScope.successful != null && requestScope.successful == 1}">
         <div class="successful">
             <span>Tạo phòng trọ thành công.</span>
-            <a href="">Nhấn vào đây để xem danh sách phòng vừa tạo</a>
+            <a href="list">Nhấn vào đây để xem danh sách phòng vừa tạo</a>
         </div>
+        </c:if>
         <div class="detail">
-            <form class="detail-content">
+            <form class="detail-content" action="add" method="POST">
                 <div class="detail-container">
                     <label for="name">Tên phòng trọ, ví dụ: P101</label>
                     <input type="text" name="name" id="name" class="detail-input">
-                    </br><p class="detail-name-error">Tên phòng đã tồn tại</p>
+                    <c:if test="${requestScope.errorName != null}">
+                        </br><p class="detail-name-error">${requestScope.errorName}</p>
+                    </c:if>
                 </div>
                 <div class="detail-container">
                     <label for="floor">Tầng phòng trọ:(Nhập số)</label>
                     <input type="text" name="floor" id="floor" class="detail-input">
-                    </br><p class="detail-name-error">Tên phòng đã tồn tại</p>
+                    <c:if test="${requestScope.errorFloor != null}">
+                        </br><p class="detail-name-error">${requestScope.errorFloor}</p>
+                    </c:if>
+                    <c:if test="${requestScope.errorSimilar != null}">
+                        </br><p class="detail-name-error">${requestScope.errorSimilar}</p>
+                    </c:if>
                 </div>
                 <div class="detail-container">
                     <label for="type">Kiểu phòng trọ:</label>

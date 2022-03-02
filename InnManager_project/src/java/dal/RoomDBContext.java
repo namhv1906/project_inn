@@ -114,4 +114,61 @@ public class RoomDBContext extends DBContext {
         }
         return list;
     }
+    
+    public void insertRoom(Room rm,int typeId){
+        String sql = "insert into Room(\n" +
+                        "	[Name],\n" +
+                        "	[Floor],\n" +
+                        "	TypeId,\n" +
+                        "	[Status])\n" +
+                        "values\n" +
+                        "	(?,\n" +
+                        "	?,\n" +
+                        "	?,\n" +
+                        "	?)";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, rm.getName());
+            stm.setInt(2, rm.getFloor());
+            stm.setInt(3, typeId);
+            stm.setBoolean(4, false);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(stm != null)
+            {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(connection !=null)
+            {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public boolean getRoomByName(String name){
+        String sql = "select Id,[Name],[Floor],TypeId,[Status] from Room\n" +
+                    "where [Name] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, name);
+            ResultSet rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

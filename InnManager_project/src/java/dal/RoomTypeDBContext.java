@@ -76,6 +76,28 @@ public class RoomTypeDBContext extends DBContext{
         return false;
     }
     
+    public RoomType getRoomTypeById(int id){
+        String sql = "select Id,[Name],Quantity,Area,Price from RoomType\n" +
+                    "where Id = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                RoomType rt = new RoomType();
+                rt.setId(rs.getInt("Id"));
+                rt.setName(rs.getString("Name"));
+                rt.setQuantity(rs.getInt("Quantity"));
+                rt.setArea(rs.getDouble("Area"));
+                rt.setPrice(rs.getDouble("Price"));
+                return rt;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public void insertRoomType(RoomType rt){
         String sql = "insert into RoomType\n" +
                     "		([Name],\n" +
