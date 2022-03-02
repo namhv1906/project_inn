@@ -171,4 +171,12 @@ public class RoomDBContext extends DBContext {
         }
         return false;
     }
+    
+    public ArrayList<Room> getListRoomPaging(ArrayList<Room> list,int start,int end){
+        ArrayList<Room> listRoom = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            listRoom.add(list.get(i));
+        }
+        return listRoom;
+    }
 }

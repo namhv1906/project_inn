@@ -34,13 +34,14 @@ public class ListRoomController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //lay thong tin tu data
         RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
         ArrayList<RoomType> listRoomType = roomTypeSql.getListRoomType();
         request.setAttribute("listRoomType", listRoomType);
         RoomDBContext roomSql = new RoomDBContext();
         ArrayList<Integer> listFloor = roomSql.getFloorRoom();
         request.setAttribute("listFloor", listFloor);
-        
+        //lay thong tin tu web
         String typeString = request.getParameter("type");
         String floorString = request.getParameter("floor");
         String statusString = request.getParameter("status");
@@ -52,7 +53,25 @@ public class ListRoomController extends HttpServlet {
         int status = Integer.parseInt(statusString);
         
         ArrayList<Room> listRoom = roomSql.getListRoomByCondition(type, floor, status);
-        request.setAttribute("listRoom", listRoom);
+        //phan trang
+        String indexPageString = request.getParameter("page");
+        int pageSize = 12;
+        int size = listRoom.size();
+        int numberPage = (size % pageSize == 0) ? (size / pageSize) : ((size/pageSize) + 1);
+        int indexPage;
+        if(indexPageString == null){
+            indexPage = 1;
+        }else{
+            indexPage = Integer.parseInt(indexPageString);
+        }
+        int start =(indexPage - 1) * pageSize;
+        int end = Math.min(indexPage * pageSize, size);
+        ArrayList<Room> listRoomPaging = roomSql.getListRoomPaging(listRoom, start, end);
+        
+        
+        request.setAttribute("listRoom", listRoomPaging);
+        request.setAttribute("indexPage", indexPage);
+        request.setAttribute("numberPage", numberPage);
         request.setAttribute("type", type);
         request.setAttribute("floor", floor);
         request.setAttribute("status", status);

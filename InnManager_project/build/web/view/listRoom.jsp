@@ -215,33 +215,41 @@
             </div>
             <div class="paging">
                 <div class="paging-content">
-                    <div class="paging-container left">
-                        <button class="paging-button" type="button">
-                            <a href=""><span>&lt;&lt;</span></i></a>
-                        </button>
-                        <button class="paging-button" type="button">
-                            <a href=""><span>&lt;</span></a>
-                        </button>
-                    </div>
+                    <c:if test="${requestScope.indexPage != 1}">
+                        <div class="paging-container left">
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${1}"><span>&lt;&lt;</span></i></a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage - 1}"><span>&lt;</span></a>
+                            </button>
+                        </div>
+                    </c:if>
                     <div class="paging-container center">
+                        <c:if test="${requestScope.indexPage - 1 > 0}">
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage - 1}">${requestScope.indexPage - 1}</a>
+                            </button>
+                        </c:if>
                         <button class="paging-button" type="button">
-                            <a href="">1</a>
+                            <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage}"><span>${requestScope.indexPage}</span></a>
                         </button>
+                        <c:if test="${requestScope.indexPage + 1 <= requestScope.numberPage}">
                         <button class="paging-button" type="button">
-                            <a href=""><span>2</span></a>
+                            <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage + 1}"><span>${requestScope.indexPage + 1}</span></a>
                         </button>
-                        <button class="paging-button" type="button">
-                            <a href=""><span>3</span></a>
-                        </button>
+                        </c:if>
                     </div>
-                    <div class="paging-container right">
-                        <button class="paging-button" type="button">
-                            <a href="">&gt;</a>
-                        </button>
-                        <button class="paging-button" type="button">
-                            <a href="">&gt;&gt;</a>
-                        </button>
-                    </div>
+                    <c:if test="${requestScope.indexPage != requestScope.numberPage}">
+                        <div class="paging-container right">
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage + 1}">&gt;</a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.numberPage}">&gt;&gt;</a>
+                            </button>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </section>
