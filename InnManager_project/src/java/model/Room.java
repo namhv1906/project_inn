@@ -16,6 +16,7 @@ public class Room {
     private boolean status;
 
     public Room() {
+        roomType = new RoomType();
     }
 
     public int getId() {

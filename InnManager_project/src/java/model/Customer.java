@@ -15,6 +15,7 @@ public class Customer {
     private int id;
     private String name;
     private Date dob;
+    private boolean gender;
     private String phone;
     private String identity;
     private String address;
@@ -115,6 +116,14 @@ public class Customer {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
     
     

@@ -158,7 +158,7 @@
                         <c:if test="${requestScope.listCustomer.size() > 0}">
                             <c:forEach items="${requestScope.listCustomer}" var="cs">
                                 <tr>
-                                    <td class="text-center column-information"><a href="" class="button-link"><i class='bx bx-info-circle'></i></a></td>
+                                    <td class="text-center column-information"><a href="information?id=${cs.id}" class="button-link"><i class='bx bx-info-circle'></i></a></td>
                                     <td class="text-center">${cs.name}</td>
                                     <td class="text-center">${cs.dob}</td>
                                     <td class="text-center">${cs.phone}</td>
