@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/controller/AddRoomController.java</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/view/addRoomType.jsp</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/view/listRoomType.jsp</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/controller/AddRoomTypeController.java</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/model/RoomType.java</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/css/addRoom.css</file>
-            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/view/addRoom.jsp</file>
+            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/view/listCustomer.jsp</file>
+            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/controller/ListCustomerController.java</file>
+            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/web/view/listRoom.jsp</file>
+            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/dal/CustomerDBContext.java</file>
+            <file>file:/D:/PRJ301_Spring2022/project_inn/InnManager_project/src/java/model/Customer.java</file>
         </group>
     </open-files>
 </project-private>
