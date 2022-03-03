@@ -32,9 +32,42 @@ public class ListCustomerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //lay thong tin tu web
+        String searchString = request.getParameter("search");
+        if(searchString == null){
+            searchString = "";
+        }
+        String statusString = request.getParameter("status");
+        if(statusString == null){
+            statusString = "-1";
+        }
+        int status = Integer.parseInt(statusString);
+        
+        //lay thong tin tu data
         CustomerDBContext customerSql = new CustomerDBContext();
-        ArrayList<Customer> listCustomer = customerSql.getListCustomer();
-        request.setAttribute("listCustomer", listCustomer);
+        ArrayList<Customer> listCustomer = customerSql.getListCustomerByCondition(status, searchString);
+        
+        //phan trang
+        String indexPageString = request.getParameter("page");
+        int pageSize = 12;
+        int size = listCustomer.size();
+        int numberPage = (size % pageSize == 0) ? (size / pageSize) : ((size/pageSize) + 1);
+        int indexPage;
+        if(indexPageString == null){
+            indexPage = 1;
+        }else{
+            indexPage = Integer.parseInt(indexPageString);
+        }
+        int start =(indexPage - 1) * pageSize;
+        int end = Math.min(indexPage * pageSize, size);
+        ArrayList<Customer> listCustomerPaging = customerSql.getListCustomerPaging(listCustomer, start, end);
+        
+        request.setAttribute("listCustomer", listCustomerPaging);
+        request.setAttribute("indexPage", indexPage);
+        request.setAttribute("numberPage", numberPage);
+        request.setAttribute("status", status);
+        request.setAttribute("search", searchString);
+        
         request.getRequestDispatcher("../view/listCustomer.jsp").forward(request, response);
     }
 

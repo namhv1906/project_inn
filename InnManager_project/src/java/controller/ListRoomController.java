@@ -42,6 +42,10 @@ public class ListRoomController extends HttpServlet {
         ArrayList<Integer> listFloor = roomSql.getFloorRoom();
         request.setAttribute("listFloor", listFloor);
         //lay thong tin tu web
+        String searchString = request.getParameter("search");
+        if(searchString == null){
+            searchString = "";
+        }
         String typeString = request.getParameter("type");
         String floorString = request.getParameter("floor");
         String statusString = request.getParameter("status");
@@ -52,7 +56,7 @@ public class ListRoomController extends HttpServlet {
         int floor = Integer.parseInt(floorString);
         int status = Integer.parseInt(statusString);
         
-        ArrayList<Room> listRoom = roomSql.getListRoomByCondition(type, floor, status);
+        ArrayList<Room> listRoom = roomSql.getListRoomByCondition(type, floor, status,searchString);
         //phan trang
         String indexPageString = request.getParameter("page");
         int pageSize = 12;
@@ -75,6 +79,7 @@ public class ListRoomController extends HttpServlet {
         request.setAttribute("type", type);
         request.setAttribute("floor", floor);
         request.setAttribute("status", status);
+        request.setAttribute("search", searchString);
         
         request.getRequestDispatcher("../view/listRoom.jsp").forward(request, response);
     }

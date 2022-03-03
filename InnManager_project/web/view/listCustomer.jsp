@@ -121,8 +121,24 @@
         <section class="content-section">
             <div class="detail">
                 <div class="detail-container-search">
-                    <form action="" class="detail-search">
-                        <input type="text" name="" class="search-input" placeholder="Nhập tên khách hàng...">
+                    <form action="list" method="GET" class="search-type" id="search-input-form">
+                        <label for="status">Tình trạng:</label>
+                        <select name="status" id="status" onchange="submitSearchForm()">
+                            <option value="-1">--Chọn loại tình trạng--</option>
+                            <option 
+                                <c:if test="${requestScope.status == 1}">
+                                    selected="selected"
+                                </c:if>
+                                value="1">Đang thuê</option>
+                            <option 
+                                <c:if test="${requestScope.status == 0}">
+                                    selected="selected"
+                                </c:if>
+                                value="0">Đang trống</option>
+                        </select>
+                    </form>
+                    <form action="list" method="GET" class="detail-search">
+                        <input type="text" name="search" class="search-input" placeholder="Nhập tên khách hàng...">
                         <button type="submit" class="search-button">
                             <i class='bx bx-search'></i>
                         </button>
@@ -160,6 +176,45 @@
                     </table>
                 </div>
             </div>
+            <div class="paging">
+                <div class="paging-content">
+                    <c:if test="${requestScope.indexPage != 1}">
+                        <div class="paging-container left">
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${1}"><span>&lt;&lt;</span></i></a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage - 1}"><span>&lt;</span></a>
+                            </button>
+                        </div>
+                    </c:if>
+                    <div class="paging-container center">
+                        <c:if test="${requestScope.indexPage - 1 > 0}">
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage - 1}">${requestScope.indexPage - 1}</a>
+                            </button>
+                        </c:if>
+                        <button class="paging-button" type="button">
+                            <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage}"><span>${requestScope.indexPage}</span></a>
+                        </button>
+                        <c:if test="${requestScope.indexPage + 1 <= requestScope.numberPage}">
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage + 1}"><span>${requestScope.indexPage + 1}</span></a>
+                            </button>
+                        </c:if>
+                    </div>
+                    <c:if test="${requestScope.indexPage != requestScope.numberPage}">
+                        <div class="paging-container right">
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage + 1}">&gt;</a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.numberPage}">&gt;&gt;</a>
+                            </button>
+                        </div>
+                    </c:if>
+                </div>
+            </div>
         </section>
 
 
@@ -171,6 +226,10 @@
                     let arrowParent = e.target.parentElement.parentElement;
                     arrowParent.classList.toggle("showMenu");
                 });
+            }
+
+            function submitSearchForm() {
+                document.getElementById("search-input-form").submit();
             }
         </script>
         <!-- JavaScript Bundle with Popper -->

@@ -173,7 +173,11 @@ and open the template in the editor.
 .detail .detail-container-search{
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: space-between;
+}
+
+.detail .detail-container-search .search-type{
+  padding-left: 20px;
 }
 
 .detail .detail-container-search .detail-search{
@@ -224,6 +228,46 @@ and open the template in the editor.
   margin-left: 15px;
   margin-right: 15px;
 }
+
+.paging{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.paging .paging-content{
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.paging .paging-content .paging-container{
+  display: inline-block;
+}
+
+.paging .paging-content .paging-container .paging-button{
+  border: 0.5px solid rgba(128, 128, 128,0.3);
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 255, 255);
+  transition: background-color 1ms linear;
+}
+
+.paging .paging-content .paging-container .paging-button a{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(128, 128, 128,0.8);
+}
+
+.paging .paging-content .paging-container .paging-button:hover{
+  background-color: rgba(128, 128, 128,0.3);
+}
+
+.paging .paging-content .paging-container .paging-button:hover a{
+  color: rgba(0, 0, 0,0.8);
+}
+
 
 @media (max-width: 768px) {
   .sidebar{

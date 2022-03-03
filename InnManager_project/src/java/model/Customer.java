@@ -25,6 +25,8 @@ public class Customer {
     private Account account;
 
     public Customer() {
+        room = new Room();
+        account = new Account();
     }
 
     public int getId() {

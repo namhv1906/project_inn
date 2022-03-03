@@ -120,6 +120,14 @@
             </div>
         </section>
         <section class="content-section">
+            <div class="detail-container-search">
+                <form action="list" method="GET" class="detail-search">
+                    <input type="text" name="search" class="search-input" placeholder="Nhập tên phòng...">
+                    <button type="submit" class="search-button">
+                        <i class='bx bx-search'></i>
+                    </button>
+                </form>
+            </div>
             <div class="search">
                 <div class="search-content">
                     <form class="search-container" id="search-input-form" action="list" method="GET">
@@ -218,35 +226,35 @@
                     <c:if test="${requestScope.indexPage != 1}">
                         <div class="paging-container left">
                             <button class="paging-button" type="button">
-                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${1}"><span>&lt;&lt;</span></i></a>
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${1}"><span>&lt;&lt;</span></i></a>
                             </button>
                             <button class="paging-button" type="button">
-                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage - 1}"><span>&lt;</span></a>
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage - 1}"><span>&lt;</span></a>
                             </button>
                         </div>
                     </c:if>
                     <div class="paging-container center">
                         <c:if test="${requestScope.indexPage - 1 > 0}">
                             <button class="paging-button" type="button">
-                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage - 1}">${requestScope.indexPage - 1}</a>
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage - 1}">${requestScope.indexPage - 1}</a>
                             </button>
                         </c:if>
                         <button class="paging-button" type="button">
-                            <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage}"><span>${requestScope.indexPage}</span></a>
+                            <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage}"><span>${requestScope.indexPage}</span></a>
                         </button>
                         <c:if test="${requestScope.indexPage + 1 <= requestScope.numberPage}">
-                        <button class="paging-button" type="button">
-                            <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage + 1}"><span>${requestScope.indexPage + 1}</span></a>
-                        </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage + 1}"><span>${requestScope.indexPage + 1}</span></a>
+                            </button>
                         </c:if>
                     </div>
                     <c:if test="${requestScope.indexPage != requestScope.numberPage}">
                         <div class="paging-container right">
                             <button class="paging-button" type="button">
-                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.indexPage + 1}">&gt;</a>
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.indexPage + 1}">&gt;</a>
                             </button>
                             <button class="paging-button" type="button">
-                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&page=${requestScope.numberPage}">&gt;&gt;</a>
+                                <a href="list?type=${requestScope.type}&floor=${requestScope.floor}&status=${requestScope.status}&search=${requestScope.search}&page=${requestScope.numberPage}">&gt;&gt;</a>
                             </button>
                         </div>
                     </c:if>
