@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.ContractDBContext;
 import dal.RoomDBContext;
 import dal.RoomTypeDBContext;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Contract;
 import model.Room;
 import model.RoomType;
 
@@ -72,7 +74,10 @@ public class ListRoomController extends HttpServlet {
         int end = Math.min(indexPage * pageSize, size);
         ArrayList<Room> listRoomPaging = roomSql.getListRoomPaging(listRoom, start, end);
         
+        ContractDBContext contractSql = new ContractDBContext();
+        ArrayList<Contract> listContract = contractSql.getListContract();
         
+        request.setAttribute("listContract", listContract);
         request.setAttribute("listRoom", listRoomPaging);
         request.setAttribute("indexPage", indexPage);
         request.setAttribute("numberPage", numberPage);

@@ -127,15 +127,23 @@
                         <div class="detail-container">
                             <label for="room">Tên phòng trọ:</label>
                             <input type="hidden" name="idRoom" value="${requestScope.room.id}">
-                            <input type="text" id="room" class="detail-input" value="${requestScope.room.name}" readonly>
+                            <input type="text" id="room" name="roomName" class="detail-input" value="${requestScope.room.name}" readonly>
                         </div>
                         <div class="detail-container">
                             <label for="deposit">Tiền đặt cọc:</label>
-                            <input type="text" name="deposit" id="deposit" class="detail-input">
+                            <input type="text" name="deposit" id="deposit" class="detail-input" value="${requestScope.room.roomType.priceLong}">
+                            <c:if test="${requestScope.errorDeposit != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorDeposit}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container detail-container-line">
                             <label for="hireDate">Ngày thuê:</label>
                             <input type="date" name="hireDate" id="hireDate" class="detail-input-date">
+                            <c:if test="${requestScope.errorHireDate != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorHireDate}</p>
+                            </c:if>
                         </div>
                     </div>
                     <div class="detail-block">
@@ -150,10 +158,12 @@
                                         <th class="text-center">Thiết bị trong phòng</th>
                                         <th class="text-center">Số lượng</th>
                                     </tr>
+                                    <c:set var="stt" scope="page" value="0"/>
                                     <c:forEach items="${requestScope.listConduct}" var="cd">
                                         <c:if test="${cd.conductType.id == 1}">
+                                            <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
                                             <tr>
-                                                <td class="text-center">1</td>
+                                                <td class="text-center">${pageScope.stt}</td>
                                                 <td class="text-center">${cd.name}</td>
                                                 <td class="text-center"><input type="text" name="conduct${cd.id}" class="input-number" value="0">
                                                 </td>
@@ -169,10 +179,12 @@
                                         <th class="text-center">Thiết bị trong nhà vệ sinh</th>
                                         <th class="text-center">Số lượng</th>
                                     </tr>
+                                    <c:set var="stt" scope="page" value="0"/>
                                     <c:forEach items="${requestScope.listConduct}" var="cd">
                                         <c:if test="${cd.conductType.id == 2}">
+                                            <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
                                             <tr>
-                                                <td class="text-center">1</td>
+                                                <td class="text-center">${pageScope.stt}</td>
                                                 <td class="text-center">${cd.name}</td>
                                                 <td class="text-center"><input type="text" name="conduct${cd.id}" class="input-number" value="0">
                                                 </td>
@@ -190,41 +202,79 @@
                         <div class="detail-container">
                             <label for="nameCustomer">Tên khách hàng</label>
                             <input type="text" name="nameCustomer" id="nameCustomer" class="detail-input">
+                            <c:if test="${requestScope.errorNameCustomer != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorNameCustomer}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container detail-container-line">
                             <label for="genderCustomer">Giới tính:</label>
                             <input type="radio" name="genderCustomer" id="genderCustomer" value="1">Nam
                             <input type="radio" name="genderCustomer" id="genderCustomer" value="0">Nữ
+                            <c:if test="${requestScope.errorGender != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorGender}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container detail-container-line">
                             <label for="dobCustomer">Ngày sinh:</label>
                             <input type="date" name="dobCustomer" id="dobCustomer" class="detail-input-date">
+                            <c:if test="${requestScope.errorDob != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorDob}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="phoneCustomer">Số điện thoại:</label>
                             <input type="text" name="phoneCustomer" id="phoneCustomer" class="detail-input">
+                            <c:if test="${requestScope.errorPhone != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorPhone}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="identityCustomer">CMND/CCCD:</label>
                             <input type="text" name="identityCustomer" id="identityCustomer" class="detail-input">
+                            <c:if test="${requestScope.errorIdentity != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorIdentity}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="addressCustomer">Nơi ở:</label>
                             <input type="text" name="addressCustomer" id="addressCustomer" class="detail-input">
+                            <c:if test="${requestScope.errorAddress != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorAddress}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="emailCustomer">Email:</label>
                             <input type="text" name="emailCustomer" id="emailCustomer" class="detail-input">
+                            <c:if test="${requestScope.errorEmail != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorEmail}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="username">Tên tài khoản:</label>
                             <input type="text" name="username" id="username" class="detail-input">
+                            <c:if test="${requestScope.errorUsername != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorUsername}</p>
+                            </c:if>
                         </div>
                         <div class="detail-container">
                             <label for="password">Mật khẩu:</label>
                             <input type="text" name="password" id="password" class="detail-input">
-                            </br>
-                            <p class="detail-name-error">Tên tài khoản và mật khẩu đã tồn tại</p>
+                            <c:if test="${requestScope.errorPassword != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorPassword}</p>
+                            </c:if>
+                            <c:if test="${requestScope.errorAccount != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorAccount}</p>
+                            </c:if>
                         </div>
                     </div>
                     <div class="detail-block">

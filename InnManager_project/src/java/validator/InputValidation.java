@@ -5,6 +5,8 @@
  */
 package validator;
 
+import java.sql.Date;
+
 /**
  *
  * @author firem

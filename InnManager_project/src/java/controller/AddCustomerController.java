@@ -9,12 +9,10 @@ import dal.AccountDBContext;
 import dal.ConductDBContext;
 import dal.ContractDBContext;
 import dal.CustomerDBContext;
-import dal.PaymentDBContext;
 import dal.RoomDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import model.Conduct;
+import model.ConductDetail;
 import model.Contract;
 import model.Customer;
-import model.Payment;
 import model.Room;
 import validator.InputValidation;
 
@@ -32,7 +30,7 @@ import validator.InputValidation;
  *
  * @author firem
  */
-public class AddContractController extends HttpServlet {
+public class AddCustomerController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,20 +44,16 @@ public class AddContractController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         //lay thong tin tu web
-        String idString = request.getParameter("id");
-        int id = Integer.parseInt(idString);
+        String idRoomString = request.getParameter("idRoom");
+        int idRoom = Integer.parseInt(idRoomString);
 
         //lay thong tin tu database
         RoomDBContext roomSql = new RoomDBContext();
-        Room room = roomSql.getRoomById(id);
-        ConductDBContext conductSql = new ConductDBContext();
-        ArrayList<Conduct> listConduct = conductSql.getListConduct();
+        Room room = roomSql.getRoomById(idRoom);
 
         request.setAttribute("room", room);
-        request.setAttribute("listConduct", listConduct);
-        request.getRequestDispatcher("../view/addContract.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
     }
 
     /**
@@ -75,8 +69,7 @@ public class AddContractController extends HttpServlet {
             throws ServletException, IOException {
         boolean flag = false;
         AccountDBContext accountSql = new AccountDBContext();
-        RoomDBContext roomSql = new RoomDBContext();
-        ConductDBContext conductSql = new ConductDBContext();
+        ContractDBContext contractSql = new ContractDBContext();
         //lay thong tin tu web
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -88,20 +81,12 @@ public class AddContractController extends HttpServlet {
         String identityCustomerString = request.getParameter("identityCustomer");
         String addressCustomerString = request.getParameter("addressCustomer");
         String emailCustomerString = request.getParameter("emailCustomer");
-
-        String idRoomString = request.getParameter("idRoom");
-        String depositString = request.getParameter("deposit");
         String hireDateString = request.getParameter("hireDate");
-        String roomNameString = request.getParameter("roomName");
+        String idRoomString = request.getParameter("idRoom");
         int idRoom = Integer.parseInt(idRoomString);
+        Contract contract = contractSql.getContractByIdRoom(idRoom, 1);
 
-        if (!InputValidation.isDouble(depositString)) {
-            String errorDeposit = "Giá trị không phải là số";
-            request.setAttribute("errorDeposit", errorDeposit);
-        } else if (hireDateString == null || hireDateString.matches(" *")) {
-            String errorHireDate = "Thông tin ngày chưa được nhập";
-            request.setAttribute("errorHireDate", errorHireDate);
-        } else if (nameCustomerString == null || nameCustomerString.matches(" *")) {
+        if (nameCustomerString == null || nameCustomerString.matches(" *")) {
             String errorNameCustomer = "Tên khách hàng trống";
             request.setAttribute("errorNameCustomer", errorNameCustomer);
         } else if (genderCustomerString == null) {
@@ -131,17 +116,21 @@ public class AddContractController extends HttpServlet {
         } else if (accountSql.getAccount(username, password) != null) {
             String errorAccount = "Tên tài khoản và mật khẩu đã tồn tại";
             request.setAttribute("errorAccount", errorAccount);
+        } else if (hireDateString == null || hireDateString.matches(" *")) {
+            String errorHireDate = "Thông tin ngày chưa được nhập";
+            request.setAttribute("errorHireDate", errorHireDate);
+        } else if (Date.valueOf(hireDateString).before(contract.getHireDate())) {
+            String errorDate = "Thời gian trước ngày tạo hợp đồng";
+            request.setAttribute("errorDate", errorDate);
         } else {
             boolean gender = genderCustomerString.equals("1");
             Date dob = Date.valueOf(dobCustomerString);
-            double deposit = Double.parseDouble(depositString);
             Date hireDate = Date.valueOf(hireDateString);
 
             //insert thong tin
-            //add information for account
             accountSql.insertAccount(username, password);
             int accountId = accountSql.getAccountInLast();
-            //add information for customer
+
             Customer cs = new Customer();
             cs.setName(nameCustomerString);
             cs.setGender(gender);
@@ -162,51 +151,18 @@ public class AddContractController extends HttpServlet {
 
             CustomerDBContext customerSql = new CustomerDBContext();
             customerSql.insertCustomer(cs);
-            int customerId = customerSql.getCustomerInLast();
-            cs.setId(customerId);
-            //add information for contract
-            Contract contract = new Contract();
-            contract.setCustomer(cs);
-            contract.setRoom(room);
-            contract.setDeposit(deposit);
-            contract.setHireDate(hireDate);
-            ContractDBContext contractSql = new ContractDBContext();
-            contractSql.insertContract(contract);
-            int contractId = contractSql.getContractInLast();
-            contract.setId(contractId);
-            //add information for conductService
-            
-            ArrayList<Conduct> listConduct = conductSql.getListConduct();
-            for (Conduct cd : listConduct) {
-                String numberString = request.getParameter("conduct" + cd.getId());
-                int number = Integer.parseInt(numberString);
-                for (int i = 0; i < number; i++) {
-                    conductSql.insertConductService(cd.getId(), contractId);
-                }
-            }
-            //add information for payment
-            Payment pm = new Payment();
-            pm.setContract(contract);
-            pm.setFromDate(hireDate);
-            Date toDate = Date.valueOf(hireDate.toLocalDate().plusMonths(1));
-            pm.setToDate(toDate);
-            PaymentDBContext paymentSql = new PaymentDBContext();
-            paymentSql.insertPayment(pm);
-            //update status room
-            roomSql.updateRoomForActive(idRoom);
             flag = true;
         }
-        if(flag){
-            response.sendRedirect("../room/list?search=" + roomNameString);
-        }else{
+        if (flag) {
+            response.sendRedirect("../room/information?id=" + idRoomString + "&status=1");
+        } else {
+            RoomDBContext roomSql = new RoomDBContext();
             Room room = roomSql.getRoomById(idRoom);
-            ArrayList<Conduct> listConduct = conductSql.getListConduct();
 
             request.setAttribute("room", room);
-            request.setAttribute("listConduct", listConduct);
-            request.getRequestDispatcher("../view/addContract.jsp").forward(request, response);
+            request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
         }
-        
+
     }
 
     /**

@@ -249,4 +249,15 @@ public class RoomDBContext extends DBContext {
         }
         return listRoom;
     }
+    
+    public void updateRoomForActive(int id){
+        String sql = "update Room set [Status] = 1 where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

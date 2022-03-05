@@ -59,5 +59,7 @@ public class RoomType {
         this.price = price;
     }
     
-    
+    public long getPriceLong(){
+        return (long)price;
+    }
 }

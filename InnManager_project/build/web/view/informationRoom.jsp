@@ -159,7 +159,7 @@
             <div class="detail-container">
                 <div class="detail-tittle">
                     <p>Người trọ</p>
-                    <a class="btn btn-primary button-add" href="#" role="button">
+                    <a class="btn btn-primary button-add" href="../customer/add?idRoom=${requestScope.idRoom}" role="button">
                         <i class='bx bx-plus'></i>
                         <span>Thêm khách hàng</span>
                     </a>
@@ -196,10 +196,12 @@
                                 <th class="text-center">Thiết bị trong phòng</th>
                                 <th class="text-center">Số lượng</th>
                             </tr>
+                            <c:set var="stt" scope="page" value="0"/>
                             <c:forEach items="${requestScope.listConductDetail}" var="cd">
                                 <c:if test="${cd.conduct.conductType.id == 1}">
+                                    <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
                                     <tr>
-                                        <td class="text-center">1</td>
+                                        <td class="text-center">${pageScope.stt}</td>
                                         <td class="text-center">${cd.conduct.name}</td>
                                         <td class="text-center">${cd.quantity}</td>
                                     </tr>
@@ -214,10 +216,12 @@
                                 <th class="text-center">Thiết bị trong nhà vệ sinh</th>
                                 <th class="text-center">Số lượng</th>
                             </tr>
+                            <c:set var="stt" scope="page" value="0"/>
                             <c:forEach items="${requestScope.listConductDetail}" var="cd">
                                 <c:if test="${cd.conduct.conductType.id == 2}">
+                                    <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
                                     <tr>
-                                        <td class="text-center">1</td>
+                                        <td class="text-center">${pageScope.stt}</td>
                                         <td class="text-center">${cd.conduct.name}</td>
                                         <td class="text-center">${cd.quantity}</td>
                                     </tr>

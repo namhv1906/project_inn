@@ -191,10 +191,19 @@
                                 <div class="detail-image">
                                     <img src="../image/phong_tro.png" alt="" class="img-inn">
                                 </div>
-                                <span class="detail-name-customer">Hoàng Văn Nam</span>
+                                <c:if test="${rm.status}">
+                                    <c:forEach items="${requestScope.listContract}" var="ct">
+                                        <c:if test="${rm.id == ct.room.id && ct.status}">
+                                            <span class="detail-name-customer">${ct.customer.name}</span>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${!rm.status}">
+                                    <span class="detail-name-customer" style="visibility: hidden">Đang trống</span>
+                                </c:if>
                                 <c:if test="${rm.status}">
                                     <button type="button" class="detail-infomation">
-                                        <a href="#">
+                                        <a href="information?id=${rm.id}&status=1">
                                             <i class='bx bx-info-circle'></i>
                                             <span class="information-click">Chi tiết</span>
                                         </a>
@@ -203,7 +212,7 @@
                                 <c:if test="${!rm.status}">
                                     <div class="detail-button">
                                         <button type="button" class="detail-infomation">
-                                            <a href="#">
+                                            <a href="../contract/add?id=${rm.id}">
                                                 <i class='bx bx-plus'></i>
                                                 <span class="information-click">Thuê</span>
                                             </a>

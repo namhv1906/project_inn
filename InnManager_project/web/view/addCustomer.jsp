@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addContract
-    Created on : Mar 5, 2022, 9:37:52 AM
+    Document   : addCustomer
+    Created on : Mar 5, 2022, 5:24:38 PM
     Author     : firem
 --%>
 
@@ -13,7 +13,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../css/addContract.css">
+        <link rel="stylesheet" href="../css/addCustomer.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -114,87 +114,12 @@
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Tạo hợp đồng phòng trọ ${requestScope.room.name}</span>
+                <span class="text">Tạo khách hàng phòng trọ ${requestScope.room.name}</span>
             </div>
         </section>
         <section class="content-section">
             <div class="detail">
                 <form class="detail-content" action="add" method="POST">
-                    <div class="detail-block">
-                        <div class="detail-tittle">
-                            <p>Hợp đồng</p>
-                        </div>
-                        <div class="detail-container">
-                            <label for="room">Tên phòng trọ:</label>
-                            <input type="hidden" name="idRoom" value="${requestScope.room.id}">
-                            <input type="text" id="room" name="roomName" class="detail-input" value="${requestScope.room.name}" readonly>
-                        </div>
-                        <div class="detail-container">
-                            <label for="deposit">Tiền đặt cọc:</label>
-                            <input type="text" name="deposit" id="deposit" class="detail-input" value="${requestScope.room.roomType.priceLong}">
-                            <c:if test="${requestScope.errorDeposit != null}">
-                                </br>
-                                <p class="detail-name-error">${requestScope.errorDeposit}</p>
-                            </c:if>
-                        </div>
-                        <div class="detail-container detail-container-line">
-                            <label for="hireDate">Ngày thuê:</label>
-                            <input type="date" name="hireDate" id="hireDate" class="detail-input-date">
-                            <c:if test="${requestScope.errorHireDate != null}">
-                                </br>
-                                <p class="detail-name-error">${requestScope.errorHireDate}</p>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="detail-block">
-                        <div class="detail-tittle">
-                            <p>Thiết bị</p>
-                        </div>
-                        <div class="row detail-content-conduct">
-                            <div class="col-lg-5 detail-conduct">
-                                <table class="table">
-                                    <tr class="table-light">
-                                        <th class="text-center">STT</th>
-                                        <th class="text-center">Thiết bị trong phòng</th>
-                                        <th class="text-center">Số lượng</th>
-                                    </tr>
-                                    <c:set var="stt" scope="page" value="0"/>
-                                    <c:forEach items="${requestScope.listConduct}" var="cd">
-                                        <c:if test="${cd.conductType.id == 1}">
-                                            <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
-                                            <tr>
-                                                <td class="text-center">${pageScope.stt}</td>
-                                                <td class="text-center">${cd.name}</td>
-                                                <td class="text-center"><input type="text" name="conduct${cd.id}" class="input-number" value="0">
-                                                </td>
-                                            </tr>
-                                        </c:if>
-                                    </c:forEach>
-                                </table>
-                            </div>
-                            <div class="col-lg-5 detail-conduct">
-                                <table class="table">
-                                    <tr class="table-light">
-                                        <th class="text-center">STT</th>
-                                        <th class="text-center">Thiết bị trong nhà vệ sinh</th>
-                                        <th class="text-center">Số lượng</th>
-                                    </tr>
-                                    <c:set var="stt" scope="page" value="0"/>
-                                    <c:forEach items="${requestScope.listConduct}" var="cd">
-                                        <c:if test="${cd.conductType.id == 2}">
-                                            <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
-                                            <tr>
-                                                <td class="text-center">${pageScope.stt}</td>
-                                                <td class="text-center">${cd.name}</td>
-                                                <td class="text-center"><input type="text" name="conduct${cd.id}" class="input-number" value="0">
-                                                </td>
-                                            </tr>
-                                        </c:if>
-                                    </c:forEach>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
                     <div class="detail-block">
                         <div class="detail-tittle">
                             <p>Người trọ</p>
@@ -276,11 +201,24 @@
                                 <p class="detail-name-error">${requestScope.errorAccount}</p>
                             </c:if>
                         </div>
+                        <div class="detail-container detail-container-line">
+                            <label for="hireDate">Ngày thuê:</label>
+                            <input type="date" name="hireDate" id="hireDate" class="detail-input-date">
+                            <c:if test="${requestScope.errorHireDate != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorHireDate}</p>
+                            </c:if>
+                            <c:if test="${requestScope.errorDate != null}">
+                                </br>
+                                <p class="detail-name-error">${requestScope.errorDate}</p>
+                            </c:if>
+                        </div>
                     </div>
                     <div class="detail-block">
                         <div class="detail-container">
                             <button class="detail-submit">
                                 <i class='bx bx-plus'></i>
+                                <input type="hidden" name="idRoom" value="${requestScope.room.id}">
                                 <input type="submit" value="Tạo mới">
                             </button>
                         </div>
