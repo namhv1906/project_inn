@@ -30,7 +30,11 @@
     </servlet>
     <servlet>
         <servlet-name>informationRoomController</servlet-name>
-        <servlet-class>controller.informationRoomController</servlet-class>
+        <servlet-class>controller.InformationRoomController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addContractController</servlet-name>
+        <servlet-class>controller.AddContractController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>informationRoomController</servlet-name>
         <url-pattern>/room/information</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addContractController</servlet-name>
+        <url-pattern>/contract/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

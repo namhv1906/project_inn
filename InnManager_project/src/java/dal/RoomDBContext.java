@@ -212,6 +212,36 @@ public class RoomDBContext extends DBContext {
         return false;
     }
     
+    public Room getRoomById(int id){
+        String sql = "select r.Id,r.[Name],r.[Floor],r.[Status],t.Id as TypeId,t.[Name] as TypeName,t.Price,t.Area,t.Quantity\n"
+                + "from Room as r inner join RoomType as t\n"
+                + "on r.TypeId = t.Id\n"
+                + "where r.Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Room room = new Room();
+                room.setId(rs.getInt("Id"));
+                room.setName(rs.getString("Name"));
+                room.setFloor(rs.getInt("Floor"));
+                room.setStatus(rs.getBoolean("Status"));
+                RoomType rt = new RoomType();
+                rt.setId(rs.getInt("TypeId"));
+                rt.setName(rs.getString("TypeName"));
+                rt.setPrice(rs.getDouble("Price"));
+                rt.setArea(rs.getDouble("Area"));
+                rt.setQuantity(rs.getInt("Quantity"));
+                room.setRoomType(rt);
+                return room;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public ArrayList<Room> getListRoomPaging(ArrayList<Room> list,int start,int end){
         ArrayList<Room> listRoom = new ArrayList<>();
         for (int i = start; i < end; i++) {

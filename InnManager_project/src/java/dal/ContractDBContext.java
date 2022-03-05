@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,5 +127,52 @@ public class ContractDBContext extends DBContext {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+    
+    public void insertContract(Contract ct){
+        String sql = "INSERT INTO [dbo].[Contract]\n" +
+                    "           ([CustomerId]\n" +
+                    "           ,[RoomId]\n" +
+                    "           ,[Deposit]\n" +
+                    "           ,[PriceConduct]\n" +
+                    "           ,[HireDate]\n" +
+                    "           ,[CheckOutDate]\n" +
+                    "           ,[Status])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, ct.getCustomer().getId());
+            stm.setInt(2, ct.getRoom().getId());
+            stm.setDouble(3, ct.getDeposit());
+            stm.setDouble(4, 0);
+            stm.setDate(5, ct.getHireDate());
+            stm.setNull(6, Types.DATE);
+            stm.setBoolean(7, true);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public int getContractInLast(){
+        String sql = "select top(1) Id from [Contract]\n" +
+                    "order by Id desc";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("Id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

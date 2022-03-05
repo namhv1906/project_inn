@@ -212,4 +212,63 @@ public class CustomerDBContext extends DBContext{
         }
         return listCustomer;
     }
+    
+    public void insertCustomer(Customer cs){
+        String sql = "INSERT INTO [dbo].[Customer]\n" +
+                    "           ([Name]\n" +
+                    "           ,[Gender]\n" +
+                    "           ,[DateOfBirth]\n" +
+                    "           ,[PhoneNumber]\n" +
+                    "           ,[IdentityCard]\n" +
+                    "           ,[Address]\n" +
+                    "           ,[Email]\n" +
+                    "           ,[RoomId]\n" +
+                    "           ,[HireDate]\n" +
+                    "           ,[Status]\n" +
+                    "           ,[AccountId])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, cs.getName());
+            stm.setBoolean(2, cs.isGender());
+            stm.setDate(3, cs.getDob());
+            stm.setString(4, cs.getPhone());
+            stm.setString(5, cs.getIdentity());
+            stm.setString(6, cs.getAddress());
+            stm.setString(7, cs.getEmail());
+            stm.setInt(8, cs.getRoom().getId());
+            stm.setDate(9, cs.getHireDate());
+            stm.setBoolean(10, true);
+            stm.setInt(11, cs.getAccount().getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public int getCustomerInLast(){
+        String sql = "select top(1) Id from Customer\n" +
+                    "order by Id desc";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("Id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 }

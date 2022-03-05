@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,5 +73,28 @@ public class ConductDBContext extends DBContext{
             }
         }
         return listConductDetail;
+    }
+    
+    public void insertConductService(int conductId,int contractId){
+        String sql = "INSERT INTO [dbo].[ConductService]\n" +
+                    "           ([ConductId]\n" +
+                    "           ,[ContractId]\n" +
+                    "           ,[Status]\n" +
+                    "           ,[Reason])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+             stm.setInt(1, conductId);
+             stm.setInt(2, contractId);
+             stm.setBoolean(3, true);
+             stm.setNull(4, Types.LONGVARCHAR);
+             stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -37,4 +37,36 @@ public class AccountDBContext extends DBContext{
         }
         return null;
     }
+    
+    public void insertAccount(String username,String password){
+        String sql = "INSERT INTO [dbo].[Account]\n" +
+                    "           ([Username]\n" +
+                    "           ,[Password])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            stm.setString(2, password);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public int getAccountInLast(){
+        String sql = "select top(1) Id from Account\n" +
+                    "order by Id desc";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("Id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 }

@@ -23,7 +23,7 @@ import model.Customer;
  *
  * @author firem
  */
-public class informationRoomController extends HttpServlet {
+public class InformationRoomController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
