@@ -41,37 +41,37 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="list">
                         <i class='bx bx-home'></i>
                         <span class="link_name">Phòng trọ</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Phòng trọ</a></li>
-                    <li><a href="#">Thêm phòng</a></li>
+                    <li><a class="link_name" href="list">Phòng trọ</a></li>
+                    <li><a href="add">Thêm phòng</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="list">
+                    <a href="../roomtype/list">
                         <i class='bx bx-book-alt'></i>
                         <span class="link_name">Loại phòng</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="list">Loại phòng</a></li>
-                    <li><a href="add">Thêm phòng</a></li>
+                    <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
+                    <li><a href="../roomtype/add">Thêm phòng</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="../customer/list">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Khách trọ</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Khách trọ</a></li>
+                    <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
                 </ul>
             </li>
             <li>
@@ -152,11 +152,16 @@
                         </c:forEach>
                     </select>
                 </div>
-                <div class="detail-container">
+                <div class="detail-container detail-button-link">
                     <button class="detail-submit">
                         <i class='bx bx-plus'></i>
                         <input type="submit" value="Tạo mới">
                     </button>
+                    <div class="check-out">
+                        <a class="btn btn-danger button-checkOut" href="list" role="button">
+                            <span>Hủy</span>
+                        </a>
+                    </div>
                 </div>
 
             </form>

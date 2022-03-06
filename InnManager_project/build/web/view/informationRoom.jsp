@@ -41,37 +41,37 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Phòng trọ</a></li>
-                        <li><a href="#">Thêm phòng</a></li>
+                        <li><a class="link_name" href="list">Phòng trọ</a></li>
+                        <li><a href="add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="../roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Loại phòng</a></li>
-                        <li><a href="#">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
+                        <li><a href="../roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../customer/list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Khách trọ</a></li>
+                        <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
                     </ul>
                 </li>
                 <li>
@@ -118,6 +118,11 @@
             </div>
         </section>
         <section class="content-section">
+            <c:if test="${sessionScope.errorAddCustomer != null}">
+                <div class="error">
+                    <span>${sessionScope.errorAddCustomer}</span>
+                </div>
+            </c:if>
             <div class="detail-container">
                 <div class="detail-tittle">
                     <p>Hợp đồng</p>
@@ -130,7 +135,7 @@
                     <table class="detail-information">
                         <tr>
                             <td>Người đại diện</td>
-                            <td><a href="">${requestScope.contract.customer.name}</a></td>
+                            <td><a href="../customer/information?id=${requestScope.contract.customer.id}">${requestScope.contract.customer.name}</a></td>
                         </tr>
                         <tr>
                             <td>Tiền đặt cọc</td>
@@ -173,13 +178,13 @@
                             <th class="text-center">&ensp;</th>
                         </tr>
                         <c:forEach items="${requestScope.listCustomer}" var="cs">
-                        <tr>
-                            <td class="text-center">${cs.name}</td>
-                            <td class="text-center">${cs.dob}</td>
-                            <td class="text-center">${cs.phone}</td>
-                            <td class="text-center"><a href="../customer/information?id=${cs.id}" class="button-link"><i class='bx bx-info-circle'></i></a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="text-center">${cs.name}</td>
+                                <td class="text-center">${cs.dob}</td>
+                                <td class="text-center">${cs.phone}</td>
+                                <td class="text-center"><a href="../customer/information?id=${cs.id}" class="button-link"><i class='bx bx-info-circle'></i></a>
+                                </td>
+                            </tr>
                         </c:forEach>
                     </table>
                 </div>

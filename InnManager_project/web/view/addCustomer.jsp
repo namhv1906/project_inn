@@ -41,28 +41,28 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="../room/list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Phòng trọ</a></li>
-                        <li><a href="#">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
+                        <li><a href="../room/list">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="list">
+                        <a href="../roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="list">Loại phòng</a></li>
-                        <li><a href="add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
+                        <li><a href="../roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
@@ -215,12 +215,17 @@
                         </div>
                     </div>
                     <div class="detail-block">
-                        <div class="detail-container">
+                        <div class="detail-container detail-button-link">
                             <button class="detail-submit">
                                 <i class='bx bx-plus'></i>
                                 <input type="hidden" name="idRoom" value="${requestScope.room.id}">
                                 <input type="submit" value="Tạo mới">
                             </button>
+                            <div class="check-out">
+                                <a class="btn btn-danger button-checkOut" href="../room/information?id=${requestScope.room.id}&status=1" role="button">
+                                    <span>Hủy</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </form>

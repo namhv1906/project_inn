@@ -41,37 +41,37 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="../room/list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Phòng trọ</a></li>
-                        <li><a href="#">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
+                        <li><a href="../room/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="../roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Loại phòng</a></li>
-                        <li><a href="#">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
+                        <li><a href="../roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Khách trọ</a></li>
+                        <li><a class="link_name" href="list">Khách trọ</a></li>
                     </ul>
                 </li>
                 <li>

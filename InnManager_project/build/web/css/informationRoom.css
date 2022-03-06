@@ -166,6 +166,16 @@ and open the template in the editor.
   transition: all 0.5s ease;
 }
 
+.error{
+  border-radius: 20px;
+  background-color: rgba(68,160,80,255);
+  color: rgba(219,251,228,255);
+}
+
+.error span{
+  padding-left: 15px;
+}
+
 .detail-container{
   margin-top: 10px;
   padding-bottom: 50px;

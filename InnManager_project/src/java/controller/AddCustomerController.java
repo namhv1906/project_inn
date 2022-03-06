@@ -6,25 +6,21 @@
 package controller;
 
 import dal.AccountDBContext;
-import dal.ConductDBContext;
 import dal.ContractDBContext;
 import dal.CustomerDBContext;
 import dal.RoomDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Conduct;
-import model.ConductDetail;
 import model.Contract;
 import model.Customer;
 import model.Room;
-import validator.InputValidation;
 
 /**
  *
@@ -49,11 +45,27 @@ public class AddCustomerController extends HttpServlet {
         int idRoom = Integer.parseInt(idRoomString);
 
         //lay thong tin tu database
+        ContractDBContext contractSql = new ContractDBContext();
+        Contract contract = contractSql.getContractByIdRoom(idRoom, 1);
         RoomDBContext roomSql = new RoomDBContext();
         Room room = roomSql.getRoomById(idRoom);
+        CustomerDBContext customerDBContext = new CustomerDBContext();
+        ArrayList<Customer> listCustomer = customerDBContext.getListCustomerByRoomId(idRoom);
+        boolean flag = false;
+        if (contract.getRoom().getRoomType().getQuantity() < listCustomer.size() + 1) {
+            String errorAddCustomer = "phòng đã hết chỗ trống";
+            HttpSession session = request.getSession();
+            session.setAttribute("errorAddCustomer", errorAddCustomer);
+            session.setMaxInactiveInterval(1);
+            flag = true;
+        }
+        if (flag) {
+            response.sendRedirect("../room/information?id=" + idRoomString + "&status=1");
+        } else {
+            request.setAttribute("room", room);
+            request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
+        }
 
-        request.setAttribute("room", room);
-        request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
     }
 
     /**

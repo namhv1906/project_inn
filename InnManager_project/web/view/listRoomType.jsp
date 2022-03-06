@@ -43,15 +43,15 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../room/list">
                         <i class='bx bx-home'></i>
                         <span class="link_name">Phòng trọ</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Phòng trọ</a></li>
-                    <li><a href="#">Thêm phòng</a></li>
+                    <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
+                    <li><a href="../room/add">Thêm phòng</a></li>
                 </ul>
             </li>
             <li>
@@ -68,12 +68,12 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="../customer/list">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Khách trọ</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Khách trọ</a></li>
+                    <li><a class="link_name" href="../cusotmer/list">Khách trọ</a></li>
                 </ul>
             </li>
             <li>

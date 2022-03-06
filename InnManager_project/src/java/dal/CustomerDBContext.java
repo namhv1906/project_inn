@@ -121,7 +121,7 @@ public class CustomerDBContext extends DBContext{
                         "from Customer as c\n" +
                         "inner join Room as r on c.RoomId = r.Id\n" +
                         "inner join Account as a on c.AccountId = a.Id\n" +
-                        "where r.Id = ? ";
+                        "where r.Id = ? and c.[Status] = 1 ";
         ArrayList<Customer> list = new ArrayList<>();
         try {
             PreparedStatement stm = connection.prepareStatement(sql);

@@ -49,7 +49,7 @@ public class ListCustomerController extends HttpServlet {
         
         //phan trang
         String indexPageString = request.getParameter("page");
-        int pageSize = 12;
+        int pageSize = 10;
         int size = listCustomer.size();
         int numberPage = (size % pageSize == 0) ? (size / pageSize) : ((size/pageSize) + 1);
         int indexPage;

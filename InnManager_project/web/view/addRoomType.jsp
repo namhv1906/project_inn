@@ -42,15 +42,15 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../room/list">
                         <i class='bx bx-home'></i>
                         <span class="link_name">Phòng trọ</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Phòng trọ</a></li>
-                    <li><a href="#">Thêm phòng</a></li>
+                    <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
+                    <li><a href="../room/add">Thêm phòng</a></li>
                 </ul>
             </li>
             <li>
@@ -67,12 +67,12 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="../customer/list">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Khách trọ</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Khách trọ</a></li>
+                    <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
                 </ul>
             </li>
             <li>
@@ -155,11 +155,16 @@
                     </br><p class="detail-name-error">${requestScope.errorQuantity}</p>
                     </c:if>
                 </div>
-                <div class="detail-container">
+                <div class="detail-container detail-button-link">
                     <button class="detail-submit">
                         <i class='bx bx-plus'></i>
                         <input type="submit" value="Tạo mới">
                     </button>
+                    <div class="check-out">
+                        <a class="btn btn-danger button-checkOut" href="list" role="button">
+                            <span>Hủy</span>
+                        </a>
+                    </div>
                 </div>
 
             </form>
