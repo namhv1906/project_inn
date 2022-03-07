@@ -160,12 +160,12 @@
                         class="bill"
                     </c:if>
                     >
-                    <a href="#">
+                    <a href="add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Hóa đơn</a></li>
+                        <li><a class="link_name" href="add">Hóa đơn</a></li>
                     </ul>
                 </li>
                 <li>
@@ -222,13 +222,13 @@
         </section>
         <div class="model-delete">
             <div class="model-form hidden">
-                <button class="btn_close" type="button">&times;</button>
+                <button class="btn_close" type="button" onclick="closeFunctionModal()">&times;</button>
             </div>
             <div class="overlay hidden"></div>
         </div>
 
-        
-        
+
+
         <script>
             let arrow = document.querySelectorAll(".arrow");
             for (var i = 0; i < arrow.length; i++) {
@@ -240,7 +240,7 @@
             const modal = document.querySelector('.model-form');
             const overlay = document.querySelector('.overlay');
 //            const btnOpen = document.querySelectorAll('.btn_open');
-            const btnClose = document.querySelector('.btn_close');
+
 
             //*Modal window
 //            const openModal = function (e) {
@@ -248,21 +248,28 @@
 //                modal.classList.remove('hidden');
 //                overlay.classList.remove('hidden');
 //            };
-            function openFunctionModal(idPayment){
+            function openFunctionModal(idPayment) {
                 modal.classList.remove('hidden');
                 overlay.classList.remove('hidden');
                 $.ajax({
-                   url: "/InnManager_project/addBill",
-                   type: "get",
-                   data: {
-                       idPayment: idPayment
-                   },
-                   success: function (response){
-                       modal.innerHTML += response;
-                   }
+                    url: "/InnManager_project/addBill",
+                    type: "get",
+                    data: {
+                        idPayment: idPayment
+                    },
+                    success: function (response) {
+                        modal.innerHTML += response;
+                    }
                 });
             }
             
+            function closeFunctionModal(){
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            }
+
 
             const closeModal = function () {
                 modal.classList.add('hidden');
@@ -274,7 +281,8 @@
 //            for (var i = 0; i < btnOpen.length; i++) {
 //                btnOpen[i].addEventListener('click', openModal);
 //            }
-            btnClose.addEventListener('click', closeModal);
+//            const btnClose = document.querySelector('.btn_close');
+//            btnClose.addEventListener('click', closeModal);
             overlay.addEventListener('click', closeModal);
 
             document.addEventListener('keydown', function (e) {
