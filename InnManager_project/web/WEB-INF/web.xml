@@ -42,7 +42,11 @@
     </servlet>
     <servlet>
         <servlet-name>NotificationDBContext</servlet-name>
-        <servlet-class>controller.notification.NotificationDBContext</servlet-class>
+        <servlet-class>controller.notification.NotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBillController</servlet-name>
+        <servlet-class>controller.AddBillController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>NotificationDBContext</servlet-name>
         <url-pattern>/notification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBillController</servlet-name>
+        <url-pattern>/bill/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
