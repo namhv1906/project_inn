@@ -3,45 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.base;
 
-import controller.base.BaseController;
-import dal.RoomTypeDBContext;
+import dal.PaymentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.RoomType;
+import javax.servlet.http.HttpSession;
+import model.Payment;
 
 /**
  *
  * @author firem
  */
-public class ListRoomTypeController extends BaseController {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String search = request.getParameter("search");
-        if(search == null){
-            search = "";
-        }
-        RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
-        ArrayList<RoomType> listRoomType = roomTypeSql.getListBySearch(search);
-        request.setAttribute("listRoomType", listRoomType);
-        request.getRequestDispatcher("../view/listRoomType.jsp").forward(request, response);
+@WebServlet(name = "BaseController", urlPatterns = {"/BaseController"})
+public abstract class BaseController extends HttpServlet {
+    
+    private void listNotification(HttpServletRequest request){
+        PaymentDBContext paymentSql = new PaymentDBContext();
+        ArrayList<Payment> listPaymentToCreate = paymentSql.getListPaymentToCreate();
+        ArrayList<Payment> listPaymentToPay = paymentSql.getListPaymentToPay();
+        HttpSession session = request.getSession();
+        session.setAttribute("listPaymentToCreate", listPaymentToCreate);
+        session.setAttribute("listPaymentToPay", listPaymentToPay);
+        
     }
+    
+    protected abstract void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+    protected abstract void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -53,9 +49,10 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        listNotification(request);
+        processGet(request, response);
     }
 
     /**
@@ -67,9 +64,10 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        listNotification(request);
+        processPost(request, response);
     }
 
     /**

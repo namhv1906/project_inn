@@ -6,17 +6,84 @@
 package dal;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Bill;
+import model.Contract;
 import model.Payment;
+import model.ServiceDetail;
 
 /**
  *
  * @author firem
  */
 public class PaymentDBContext extends DBContext{
+    
+    public ArrayList<Payment> getListPaymentToCreate(){
+        String sql = "select Id,ContractId,CurrentBillId,FromDate,ToDate,[Status] from Payment\n" +
+                    "where CurrentBillId is Null and [Status] = 0 ";
+        ContractDBContext contractSql = new ContractDBContext();
+        ArrayList<Payment> list = new ArrayList<>();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Payment pm = new Payment();
+                pm.setId(rs.getInt("Id"));
+                Contract contract = contractSql.getContractById(rs.getInt("ContractId"));
+                pm.setContract(contract);
+                pm.setFromDate(rs.getDate("FromDate"));
+                pm.setToDate(rs.getDate("ToDate"));
+                pm.setStatus(rs.getBoolean("Status"));
+                
+                list.add(pm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Payment> getListPaymentToPay(){
+        String sql = "select p.Id,p.ContractId,p.FromDate,p.ToDate,p.[Status],\n" +
+                    "p.CurrentBillId,b.PriceTotal\n" +
+                    "from Payment as p\n" +
+                    "inner join Bill as b on p.CurrentBillId = b.Id\n" +
+                    "where CurrentBillId is not Null and [Status] = 0 ";
+        ContractDBContext contractSql = new ContractDBContext();
+        ServiceDetailDBContext serviceTypeSql = new ServiceDetailDBContext();
+        ArrayList<Payment> list = new ArrayList<>();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Payment pm = new Payment();
+                pm.setId(rs.getInt("Id"));
+                Contract contract = contractSql.getContractById(rs.getInt("ContractId"));
+                pm.setContract(contract);
+                pm.setFromDate(rs.getDate("FromDate"));
+                pm.setToDate(rs.getDate("ToDate"));
+                pm.setStatus(rs.getBoolean("Status"));
+                
+                Bill bill = new Bill();
+                bill.setId(rs.getInt("CurrentBillId"));
+                bill.setPrice(rs.getDouble("PriceTotal"));
+                ArrayList<ServiceDetail> listServiceDetail = serviceTypeSql.getListServiceDetailByBillId(rs.getInt("CurrentBillId"));
+                bill.setListService(listServiceDetail);
+                pm.setBill(bill);
+                
+                list.add(pm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public void insertPayment(Payment pm){
         String sql = "INSERT INTO [dbo].[Payment]\n" +
                     "           ([ContractId]\n" +

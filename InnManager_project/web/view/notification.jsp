@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listRoomType
-    Created on : Feb 27, 2022, 12:31:05 PM
+    Document   : notification
+    Created on : Mar 7, 2022, 11:21:44 AM
     Author     : firem
 --%>
 
@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../css/listRoomType.css">
+        <link rel="stylesheet" href="css/notification.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -110,37 +110,37 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="../room/list">
+                        <a href="room/list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
-                        <li><a href="../room/add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="room/list">Phòng trọ</a></li>
+                        <li><a href="room/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="list">
+                        <a href="roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="list">Loại phòng</a></li>
-                        <li><a href="add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="roomtype/list">Loại phòng</a></li>
+                        <li><a href="roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="../customer/list">
+                    <a href="customer/list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../cusotmer/list">Khách trọ</a></li>
+                        <li><a class="link_name" href="cusotmer/list">Khách trọ</a></li>
                     </ul>
                 </li>
                 <li 
@@ -148,12 +148,12 @@
                         class="notification"
                     </c:if>
                     >
-                    <a href="#">
+                    <a href="notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thông báo</a></li>
+                        <li><a class="link_name" href="notification">Thông báo</a></li>
                     </ul>
                 </li>
                 <li
@@ -191,42 +191,37 @@
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Danh sách loại phòng</span>
+                <span class="text">Thông báo</span>
             </div>
         </section>
         <section class="content-section">
             <div class="detail">
-                <div class="detail-container-search">
+                <!-- <div class="detail-container-search">
                     <form action="" class="detail-search">
-                        <input type="text" name="search" class="search-input" placeholder="Nhập tên phòng...">
+                        <input type="text" name="" class="search-input" placeholder="Nhập tên phòng...">
                         <button type="submit" class="search-button">
                             <i class='bx bx-search'></i>
                         </button>
                     </form>
-                </div>
+                </div> -->
                 <div class="table-responsive detail-container-information">
                     <table class="table detail-information">
                         <tr class="table-light">
-                            <th class="text-center">Tên loại</th>
-                            <th class="text-center">Giá</th>
-                            <th class="text-center">Diện tích</th>
-                            <th class="text-center">Số người</th>
-                            <th>&ensp;</th>
+                            <th class="text-center">Tên phòng</th>
+                            <th class="text-center">Nội dung</th>
+                            <th class="text-center">Từ ngày</th>
+                            <th class="text-center">Đến ngày</th>
+                            <th class="text-center">Thao tác</th>
                         </tr>
-                        <c:if test="${!requestScope.listRoomType.isEmpty()}">
-                            <c:forEach items="${requestScope.listRoomType}" var="rt">
-                                <tr>
-                                    <td class="text-center">${rt.name}</td>
-                                    <td class="text-center">${rt.price}</td>
-                                    <td class="text-center">${rt.area}m2</td>
-                                    <td class="text-center">${rt.quantity}</td>
-                                    <td class="column-action">
-                                        <a href="" class="button-link"><i class='bx bx-trash'></i></a>
-                                        <a href="" class="button-link"><i class='bx bx-edit'></i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
+                        <c:forEach items="${sessionScope.listPaymentToCreate}" var="pm">
+                        <tr>
+                            <td class="text-center">${pm.contract.room.name}</td>
+                            <td class="text-center">Thu tiền phòng tháng ${pm.fromDate.toLocalDate().getMonthValue().toString()}</td>
+                            <td class="text-center">${pm.fromDate}</td>
+                            <td class="text-center">${pm.toDate}</td>
+                            <td class="text-center"><a class="btn btn-primary" href="#" role="button">Tạo hóa đơn</a></td>
+                        </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>
