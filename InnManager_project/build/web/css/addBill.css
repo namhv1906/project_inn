@@ -228,7 +228,7 @@ and open the template in the editor.
   transition: all 0.5s;
 }
 
-.model-form .model-change p {
+.model-form #model-change p {
   color: rgb(82, 43, 43);
   font-weight: 600;
   text-align: justify;
