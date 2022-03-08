@@ -213,7 +213,7 @@
                                 <td class="text-center align-middle">${pm.bill.priceLong + pm.contract.room.roomType.priceLong}</td>
                                 <td class="text-center align-middle">${pm.fromDate}</td>
                                 <td class="text-center align-middle">${pm.toDate}</td>
-                                <td class="text-center"><a class="btn btn-primary" href="#" role="button">Thu</a></td>
+                                <td class="text-center"><a class="btn btn-primary" href="collect?idPayment=${pm.id}&idBill=${pm.bill.id}" role="button">Thu</a></td>
                             </tr>
                         </c:forEach>
                     </table>

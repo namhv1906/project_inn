@@ -62,7 +62,7 @@ public class LoadDataToAddBill extends HttpServlet {
                     totalService += sd.getService().getPrice() * sd.getQuantity();
                     out.println("<tr>\n" +
         "                            <td>" + sd.getService().getName() + "</td>\n" +
-        "                            <td>Số(kWh)</td>\n" +
+        "                            <td>" + sd.getService().getUnit() + "</td>\n" +
         "                            <td>" + sd.getService().getPrice() + "</td>\n" +
         "                            <td>" + sd.getQuantity() + "</td>\n" +
         "                            <td>" + sd.getService().getPrice() * sd.getQuantity()+ "</td>\n" +

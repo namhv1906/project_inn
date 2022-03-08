@@ -48,6 +48,10 @@
         <servlet-name>AddBillController</servlet-name>
         <servlet-class>controller.AddBillController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CollectionBillController</servlet-name>
+        <servlet-class>controller.CollectionBillController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>AddBillController</servlet-name>
         <url-pattern>/admin/bill/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CollectionBillController</servlet-name>
+        <url-pattern>/admin/bill/collect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -226,7 +226,7 @@ and open the template in the editor.
   top: 50%;
   bottom: 50%;
   left: 50%;
-  height: 40rem;
+  height: 38rem;
   transform: translate(-50%, -50%);
   max-width: 50rem;
   background-color: #f3f3f3;
@@ -237,10 +237,21 @@ and open the template in the editor.
   transition: all 0.5s;
 }
 
-.model-form .model-change p {
+.model-form #model-change p {
   color: rgb(82, 43, 43);
   font-weight: 600;
   text-align: justify;
+}
+
+.model-form #model-change .input-number{
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.model-form #model-change .button-submit-form{
+  text-align: center;
+  margin-top: 30px;
 }
 
 .overlay {

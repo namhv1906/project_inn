@@ -22,7 +22,7 @@ import model.ServiceType;
 public class ServiceDetailDBContext extends DBContext{
     public ArrayList<ServiceDetail> getListServiceDetailByBillId(int id){
         String sql = "select b.Id,b.Quanlity,\n" +
-                    "b.ServiceTypeId,s.[Name],s.Price,\n" +
+                    "b.ServiceTypeId,s.[Name],s.Price,s.Unit,\n" +
                     "b.BillId,l.PriceTotal\n" +
                     "from ServiceBill as b\n" +
                     "inner join ServiceType as s on b.ServiceTypeId = s.Id\n" +
@@ -48,6 +48,7 @@ public class ServiceDetailDBContext extends DBContext{
                 st.setId(rs.getInt("ServiceTypeId"));
                 st.setName(rs.getString("Name"));
                 st.setPrice(rs.getDouble("Price"));
+                st.setUnit(rs.getString("Unit"));
                 sd.setService(st);
                 
                 list.add(sd);
@@ -56,5 +57,25 @@ public class ServiceDetailDBContext extends DBContext{
             Logger.getLogger(ServiceDetailDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+    
+    public void insertServiceBill(int idBill,int idService,int quantity){
+        String sql = "INSERT INTO [dbo].[ServiceBill]\n" +
+                    "           ([BillId]\n" +
+                    "           ,[ServiceTypeId]\n" +
+                    "           ,[Quanlity])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, idBill);
+            stm.setInt(2, idService);
+            stm.setInt(3, quantity);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDetailDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -12,6 +12,7 @@ package model;
 public class ServiceType {
     private int id;
     private String name;
+    private String unit;
     private double price;
 
     public ServiceType() {
@@ -39,6 +40,14 @@ public class ServiceType {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
     
     

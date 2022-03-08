@@ -109,4 +109,73 @@ public class PaymentDBContext extends DBContext{
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateCurrentBillId(int idBill ,int idPayment){
+        String sql = "update Payment set CurrentBillId = ?\n" +
+                    "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, idBill);
+            stm.setInt(2, idPayment);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public Payment getPaymentById(int id){
+        String sql = "select p.Id,p.ContractId,p.FromDate,p.ToDate,p.[Status],\n" +
+                    "p.CurrentBillId,b.PriceTotal\n" +
+                    "from Payment as p\n" +
+                    "inner join Bill as b on p.CurrentBillId = b.Id\n" +
+                    "where p.Id = ? ";
+        ContractDBContext contractSql = new ContractDBContext();
+        ServiceDetailDBContext serviceTypeSql = new ServiceDetailDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Payment pm = new Payment();
+                pm.setId(rs.getInt("Id"));
+                Contract contract = contractSql.getContractById(rs.getInt("ContractId"));
+                pm.setContract(contract);
+                pm.setFromDate(rs.getDate("FromDate"));
+                pm.setToDate(rs.getDate("ToDate"));
+                pm.setStatus(rs.getBoolean("Status"));
+                
+                Bill bill = new Bill();
+                bill.setId(rs.getInt("CurrentBillId"));
+                bill.setPrice(rs.getDouble("PriceTotal"));
+                ArrayList<ServiceDetail> listServiceDetail = serviceTypeSql.getListServiceDetailByBillId(rs.getInt("CurrentBillId"));
+                bill.setListService(listServiceDetail);
+                pm.setBill(bill);
+                
+                return pm;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public void updateNewCurrentPayment(Payment pm){
+        String sql = "UPDATE [dbo].[Payment]\n" +
+                    "   SET [CurrentBillId] = ?\n" +
+                    "      ,[FromDate] = ?\n" +
+                    "      ,[ToDate] = ?\n" +
+                    " WHERE Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setNull(1, Types.INTEGER);
+            stm.setDate(2, pm.getFromDate());
+            stm.setDate(3,pm.getToDate());
+            stm.setInt(4, pm.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }
