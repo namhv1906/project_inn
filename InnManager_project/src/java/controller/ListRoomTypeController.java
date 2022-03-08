@@ -40,7 +40,7 @@ public class ListRoomTypeController extends BaseController {
         RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
         ArrayList<RoomType> listRoomType = roomTypeSql.getListBySearch(search);
         request.setAttribute("listRoomType", listRoomType);
-        request.getRequestDispatcher("../view/listRoomType.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/listRoomType.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

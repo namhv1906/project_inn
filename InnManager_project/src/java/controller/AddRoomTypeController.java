@@ -33,7 +33,7 @@ public class AddRoomTypeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/addRoomType.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/addRoomType.jsp").forward(request, response);
     }
 
     /**
@@ -80,7 +80,7 @@ public class AddRoomTypeController extends HttpServlet {
             successful = 1;
         }
         request.setAttribute("successful", successful);
-        request.getRequestDispatcher("../view/addRoomType.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/addRoomType.jsp").forward(request, response);
     }
 
     /**

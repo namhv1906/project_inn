@@ -59,7 +59,7 @@ public class AddContractController extends HttpServlet {
 
         request.setAttribute("room", room);
         request.setAttribute("listConduct", listConduct);
-        request.getRequestDispatcher("../view/addContract.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/addContract.jsp").forward(request, response);
     }
 
     /**
@@ -204,7 +204,7 @@ public class AddContractController extends HttpServlet {
 
             request.setAttribute("room", room);
             request.setAttribute("listConduct", listConduct);
-            request.getRequestDispatcher("../view/addContract.jsp").forward(request, response);
+            request.getRequestDispatcher("../../view/addContract.jsp").forward(request, response);
         }
         
     }

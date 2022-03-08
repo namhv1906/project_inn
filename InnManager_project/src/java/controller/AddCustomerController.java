@@ -63,7 +63,7 @@ public class AddCustomerController extends HttpServlet {
             response.sendRedirect("../room/information?id=" + idRoomString + "&status=1");
         } else {
             request.setAttribute("room", room);
-            request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("../../view/addCustomer.jsp").forward(request, response);
         }
 
     }
@@ -172,7 +172,7 @@ public class AddCustomerController extends HttpServlet {
             Room room = roomSql.getRoomById(idRoom);
 
             request.setAttribute("room", room);
-            request.getRequestDispatcher("../view/addCustomer.jsp").forward(request, response);
+            request.getRequestDispatcher("../../view/addCustomer.jsp").forward(request, response);
         }
 
     }

@@ -39,7 +39,7 @@ public class AddRoomController extends HttpServlet {
         RoomTypeDBContext roomTyprSql = new RoomTypeDBContext();
         ArrayList<RoomType> listRoomType = roomTyprSql.getListRoomType();
         request.setAttribute("listRoomType", listRoomType);
-        request.getRequestDispatcher("../view/addRoom.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/addRoom.jsp").forward(request, response);
     }
 
     /**
@@ -83,7 +83,7 @@ public class AddRoomController extends HttpServlet {
         }
         
         request.setAttribute("successful", successful);
-        request.getRequestDispatcher("../view/addRoom.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/addRoom.jsp").forward(request, response);
     }
 
     /**

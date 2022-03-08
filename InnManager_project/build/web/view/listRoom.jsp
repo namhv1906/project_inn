@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../css/listRoom.css">
+        <link rel="stylesheet" href="../../css/listRoom.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -77,21 +77,21 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thông báo</a></li>
+                        <li><a class="link_name" href="../notification">Thông báo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Hóa đơn</a></li>
+                        <li><a class="link_name" href="../bill/add">Hóa đơn</a></li>
                     </ul>
                 </li>
                 <li>
@@ -189,7 +189,7 @@
                                     <span class="detail-status" style="color: red;">Đang trống</span>
                                 </c:if>
                                 <div class="detail-image">
-                                    <img src="../image/phong_tro.png" alt="" class="img-inn">
+                                    <img src="../../image/phong_tro.png" alt="" class="img-inn">
                                 </div>
                                 <c:if test="${rm.status}">
                                     <c:forEach items="${requestScope.listContract}" var="ct">

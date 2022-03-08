@@ -86,7 +86,7 @@ public class ListRoomController extends HttpServlet {
         request.setAttribute("status", status);
         request.setAttribute("search", searchString);
         
-        request.getRequestDispatcher("../view/listRoom.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/listRoom.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

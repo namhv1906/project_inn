@@ -39,7 +39,7 @@ public class InformationCustomerController extends HttpServlet {
         
         request.setAttribute("customer", customer);
         request.setAttribute("id", id);
-        request.getRequestDispatcher("../view/informationCustomer.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/informationCustomer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -55,7 +55,7 @@ public class InformationRoomController extends HttpServlet {
         request.setAttribute("listCustomer", listCustomer);
         request.setAttribute("idRoom", id);
         request.setAttribute("statusRoom", status);
-        request.getRequestDispatcher("../view/informationRoom.jsp").forward(request, response);
+        request.getRequestDispatcher("../../view/informationRoom.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

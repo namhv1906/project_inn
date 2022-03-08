@@ -54,47 +54,47 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListRoomTypeController</servlet-name>
-        <url-pattern>/roomtype/list</url-pattern>
+        <url-pattern>/admin/roomtype/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddRoomTypeController</servlet-name>
-        <url-pattern>/roomtype/add</url-pattern>
+        <url-pattern>/admin/roomtype/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListRoomController</servlet-name>
-        <url-pattern>/room/list</url-pattern>
+        <url-pattern>/admin/room/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddRoomController</servlet-name>
-        <url-pattern>/room/add</url-pattern>
+        <url-pattern>/admin/room/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListCustomerController</servlet-name>
-        <url-pattern>/customer/list</url-pattern>
+        <url-pattern>/admin/customer/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InformationCustomer</servlet-name>
-        <url-pattern>/customer/information</url-pattern>
+        <url-pattern>/admin/customer/information</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>informationRoomController</servlet-name>
-        <url-pattern>/room/information</url-pattern>
+        <url-pattern>/admin/room/information</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>addContractController</servlet-name>
-        <url-pattern>/contract/add</url-pattern>
+        <url-pattern>/admin/contract/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCustomerController</servlet-name>
-        <url-pattern>/customer/add</url-pattern>
+        <url-pattern>/admin/customer/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NotificationDBContext</servlet-name>
-        <url-pattern>/notification</url-pattern>
+        <url-pattern>/admin/notification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBillController</servlet-name>
-        <url-pattern>/bill/add</url-pattern>
+        <url-pattern>/admin/bill/add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

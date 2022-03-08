@@ -103,7 +103,7 @@ public class PaymentDBContext extends DBContext{
             stm.setNull(2, Types.INTEGER);
             stm.setDate(3, pm.getFromDate());
             stm.setDate(4, pm.getToDate());
-            stm.setBoolean(5, true);
+            stm.setBoolean(5, false);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
