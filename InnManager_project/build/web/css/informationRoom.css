@@ -168,7 +168,7 @@ and open the template in the editor.
 
 .error{
   border-radius: 20px;
-  background-color: rgba(68,160,80,255);
+  background-color: red;
   color: rgba(219,251,228,255);
 }
 

@@ -40,7 +40,7 @@
                 justify-content: center;
                 transition: all 0.5s ease;
             }
-            
+
             .sidebar .nav-links .bill::before{
                 content: "${sessionScope.listPaymentToPay.size()}";
                 width: 20px;
@@ -73,7 +73,7 @@
                     align-items: center;
                     justify-content: center;
                 }
-                
+
                 .sidebar .nav-links .bill::before{
                     width: 20px;
                     height: 20px;
@@ -161,12 +161,12 @@
                         class="bill"
                     </c:if>
                     >
-                    <a href="#">
+                    <a href="bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Hóa đơn</a></li>
+                        <li><a class="link_name" href="bill/add">Hóa đơn</a></li>
                     </ul>
                 </li>
                 <li>
@@ -214,19 +214,25 @@
                             <th class="text-center">Thao tác</th>
                         </tr>
                         <c:forEach items="${sessionScope.listPaymentToCreate}" var="pm">
-                        <tr>
-                            <td class="text-center">${pm.contract.room.name}</td>
-                            <td class="text-center">Thu tiền phòng tháng ${pm.fromDate.toLocalDate().getMonthValue().toString()}</td>
-                            <td class="text-center">${pm.fromDate}</td>
-                            <td class="text-center">${pm.toDate}</td>
-                            <td class="text-center"><a class="btn btn-primary" href="#" role="button">Tạo hóa đơn</a></td>
-                        </tr>
+                            <tr>
+                                <td class="text-center">${pm.contract.room.name}</td>
+                                <td class="text-center">Thu tiền phòng tháng ${pm.fromDate.toLocalDate().getMonthValue().toString()}</td>
+                                <td class="text-center">${pm.fromDate}</td>
+                                <td class="text-center">${pm.toDate}</td>
+                                <td class="text-center"><button class="btn btn-primary" href="#" role="button" onclick="openFunctionModal(${pm.id})">Tạo hóa đơn</button></td>
+                            </tr>
                         </c:forEach>
                     </table>
                 </div>
             </div>
         </section>
 
+        <div class="model-delete">
+            <div class="model-form hidden">
+                <button class="btn_close" type="button" onclick="closeFunctionModal()">&times;</button>
+            </div>
+            <div class="overlay hidden"></div>
+        </div>
 
 
         <script>
@@ -237,7 +243,62 @@
                     arrowParent.classList.toggle("showMenu");
                 });
             }
+            const modal = document.querySelector('.model-form');
+            const overlay = document.querySelector('.overlay');
+//            const btnOpen = document.querySelectorAll('.btn_open');
+
+
+            //*Modal window
+//            const openModal = function (e) {
+//                e.preventDefault();
+//                modal.classList.remove('hidden');
+//                overlay.classList.remove('hidden');
+//            };
+            function openFunctionModal(idPayment) {
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                $.ajax({
+                    url: "/InnManager_project/loadForm",
+                    type: "get",
+                    data: {
+                        idPayment: idPayment
+                    },
+                    success: function (response) {
+                        modal.innerHTML += response;
+                    }
+                });
+            }
+
+            function closeFunctionModal() {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            }
+
+
+            const closeModal = function () {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            };
+
+//            for (var i = 0; i < btnOpen.length; i++) {
+//                btnOpen[i].addEventListener('click', openModal);
+//            }
+//            const btnClose = document.querySelector('.btn_close');
+//            btnClose.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
         </script>
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

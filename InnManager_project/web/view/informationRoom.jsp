@@ -75,21 +75,21 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thông báo</a></li>
+                        <li><a class="link_name" href="../notification">Thông báo</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Hóa đơn</a></li>
+                        <li><a class="link_name" href="../bill/add">Hóa đơn</a></li>
                     </ul>
                 </li>
                 <li>
