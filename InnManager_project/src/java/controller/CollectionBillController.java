@@ -48,11 +48,10 @@ public class CollectionBillController extends HttpServlet {
         int idBill = Integer.parseInt(idBillString);
         
         PaymentDBContext paymentSql = new PaymentDBContext();
-        Payment payment = paymentSql.getPaymentById(idPayment);
+        Payment payment = paymentSql.getPaymentByIdNotNull(idPayment);
         
         BillDBContext billSql = new BillDBContext();
         Bill bill = billSql.getBillByIdBill(idBill);
-        System.out.println("id= " + bill.getId());
         
         PaymentHistory ph = new PaymentHistory();
         ph.setPayment(payment);

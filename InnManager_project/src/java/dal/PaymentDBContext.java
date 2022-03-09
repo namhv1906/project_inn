@@ -124,7 +124,7 @@ public class PaymentDBContext extends DBContext{
         
     }
     
-    public Payment getPaymentById(int id){
+    public Payment getPaymentByIdNotNull(int id){
         String sql = "select p.Id,p.ContractId,p.FromDate,p.ToDate,p.[Status],\n" +
                     "p.CurrentBillId,b.PriceTotal\n" +
                     "from Payment as p\n" +
@@ -151,6 +151,32 @@ public class PaymentDBContext extends DBContext{
                 ArrayList<ServiceDetail> listServiceDetail = serviceTypeSql.getListServiceDetailByBillId(rs.getInt("CurrentBillId"));
                 bill.setListService(listServiceDetail);
                 pm.setBill(bill);
+                
+                return pm;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Payment getPaymentByIdNull(int id){
+        String sql = "select p.Id,p.ContractId,p.CurrentBillId,p.FromDate,p.ToDate,p.[Status]\n" +
+                    "from Payment as p\n" +
+                    "where p.Id = ? ";
+        ContractDBContext contractSql = new ContractDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Payment pm = new Payment();
+                pm.setId(rs.getInt("Id"));
+                Contract contract = contractSql.getContractById(rs.getInt("ContractId"));
+                pm.setContract(contract);
+                pm.setFromDate(rs.getDate("FromDate"));
+                pm.setToDate(rs.getDate("ToDate"));
+                pm.setStatus(rs.getBoolean("Status"));
                 
                 return pm;
             }

@@ -5,10 +5,15 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Bill;
+import model.Payment;
 import model.PaymentHistory;
 
 /**
@@ -38,4 +43,73 @@ public class PaymentHistoryDBContext extends DBContext{
             Logger.getLogger(PaymentHistoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<PaymentHistory> getListPaymentHistory(){
+        String sql = "select Id,PaymentId,BillId,FromDate,ToDate from PaymentHistory";
+        ArrayList<PaymentHistory> list = new ArrayList<>();
+        PaymentDBContext paymentSql = new PaymentDBContext();
+        BillDBContext billSql = new BillDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                PaymentHistory ph = new PaymentHistory();
+                ph.setId(rs.getInt("Id"));
+                
+                Payment payment = paymentSql.getPaymentByIdNull(rs.getInt("PaymentId"));
+                ph.setPayment(payment);
+                
+                Bill bill = billSql.getBillByIdBill(rs.getInt("BillId"));
+                ph.setBill(bill);
+                
+                ph.setFromDate(rs.getDate("FromDate"));
+                ph.setToDate(rs.getDate("ToDate"));
+                list.add(ph);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentHistoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<PaymentHistory> getListPaymentHistoryByCondition(String fromDate,String toDate,String search){
+        String sql = "select h.Id,h.PaymentId,h.BillId,h.FromDate,h.ToDate\n" +
+                    "from PaymentHistory as h\n" +
+                    "inner join Payment as p on p.Id = h.PaymentId\n" +
+                    "inner join [Contract] as c on c.Id = p.ContractId\n" +
+                    "inner join Room as r on r.Id = c.RoomId\n" +
+                    "where r.[Name] like ? \n";
+        if(!fromDate.equals("")){
+            sql += "and h.FromDate >= '" + fromDate + "' ";
+        }
+        if(!toDate.equals("")){
+            sql += "and h.FromDate <= '" + toDate + "' ";
+        }
+        ArrayList<PaymentHistory> list = new ArrayList<>();
+        PaymentDBContext paymentSql = new PaymentDBContext();
+        BillDBContext billSql = new BillDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, "%" + search + "%");
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                PaymentHistory ph = new PaymentHistory();
+                ph.setId(rs.getInt("Id"));
+                
+                Payment payment = paymentSql.getPaymentByIdNull(rs.getInt("PaymentId"));
+                ph.setPayment(payment);
+                
+                Bill bill = billSql.getBillByIdBill(rs.getInt("BillId"));
+                ph.setBill(bill);
+                
+                ph.setFromDate(rs.getDate("FromDate"));
+                ph.setToDate(rs.getDate("ToDate"));
+                list.add(ph);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentHistoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
 }
