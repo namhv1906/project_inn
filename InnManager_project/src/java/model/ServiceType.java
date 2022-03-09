@@ -50,5 +50,7 @@ public class ServiceType {
         this.unit = unit;
     }
     
-    
+    public long getPriceLong() {
+        return (long)price;
+    }
 }

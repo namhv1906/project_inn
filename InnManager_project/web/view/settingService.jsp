@@ -1,9 +1,8 @@
 <%-- 
-    Document   : listRoomType
-    Created on : Feb 27, 2022, 12:31:05 PM
+    Document   : settingService
+    Created on : Mar 9, 2022, 2:55:27 PM
     Author     : firem
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -15,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../../css/listRoomType.css">
+        <link rel="stylesheet" href="../../css/settingService.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -40,7 +39,7 @@
                 justify-content: center;
                 transition: all 0.5s ease;
             }
-            
+
             .sidebar .nav-links .bill::before{
                 content: "${sessionScope.listPaymentToPay.size()}";
                 width: 20px;
@@ -73,7 +72,7 @@
                     align-items: center;
                     justify-content: center;
                 }
-                
+
                 .sidebar .nav-links .bill::before{
                     width: 20px;
                     height: 20px;
@@ -123,15 +122,15 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="list">
+                        <a href="../roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="list">Loại phòng</a></li>
-                        <li><a href="add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
+                        <li><a href="../roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
@@ -188,52 +187,38 @@
                     </div>
                     <ul class="sub-menu">
                         <li><a class="link_name" href="">Thiết lập</a></li>
-                        <li><a href="../setting/service">Tiền dịch vụ</a></li>
-                        <li><a href="../setting/conduct">Tiền đồ dùng</a></li>
+                        <li><a href="service">Tiền dịch vụ</a></li>
+                        <li><a href="conduct">Tiền đồ dùng</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Danh sách loại phòng</span>
+                <span class="text">Thiết lập dịch vụ</span>
             </div>
         </section>
         <section class="content-section">
+            <c:if test="${requestScope.successfull != null && requestScope.successfull == 1}">
+                <div class="successful">
+                    <span>Thiết lập giá dịch vụ thành công</span>
+                </div>
+            </c:if>
             <div class="detail">
-                <div class="detail-container-search">
-                    <form action="" class="detail-search">
-                        <input type="text" name="search" class="search-input" placeholder="Nhập tên phòng...">
-                        <button type="submit" class="search-button">
-                            <i class='bx bx-search'></i>
+                <form class="detail-content" action="service" method="POST">
+                    <c:forEach items="${requestScope.listServiceType}" var="st">
+                        <div class="detail-container">
+                            <label for="service${st.id}">TIền ${st.name}</label>
+                            <input type="text" name="service${st.id}" id="service${st.id}" class="detail-input" value="${st.priceLong}">
+                        </div>
+                    </c:forEach>
+                    <div class="detail-container detail-button-link" style="padding-bottom: 20px;">
+                        <button class="detail-submit">
+                            <i class='bx bx-plus'></i>
+                            <input type="submit" value="Tạo mới">
                         </button>
-                    </form>
-                </div>
-                <div class="table-responsive detail-container-information">
-                    <table class="table detail-information">
-                        <tr class="table-light">
-                            <th class="text-center">Tên loại</th>
-                            <th class="text-center">Giá</th>
-                            <th class="text-center">Diện tích</th>
-                            <th class="text-center">Số người</th>
-                            <th>&ensp;</th>
-                        </tr>
-                        <c:if test="${!requestScope.listRoomType.isEmpty()}">
-                            <c:forEach items="${requestScope.listRoomType}" var="rt">
-                                <tr>
-                                    <td class="text-center">${rt.name}</td>
-                                    <td class="text-center">${rt.price}</td>
-                                    <td class="text-center">${rt.area}m2</td>
-                                    <td class="text-center">${rt.quantity}</td>
-                                    <td class="column-action">
-                                        <a href="" class="button-link"><i class='bx bx-trash'></i></a>
-                                        <a href="" class="button-link"><i class='bx bx-edit'></i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
-                </div>
+                    </div>
+                </form>
             </div>
         </section>
 

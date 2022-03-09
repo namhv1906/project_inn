@@ -25,8 +25,8 @@ import model.RoomType;
  * @author firem
  */
 public class ContractDBContext extends DBContext {
-    
-    public ArrayList<Contract> getListContract(){
+
+    public ArrayList<Contract> getListContract() {
         String sql = "select t.Id,t.Deposit,t.PriceConduct,t.HireDate,t.CheckOutDate,t.[Status],\n"
                 + "t.CustomerId,c.[Name] as CustomerName,c.DateOfBirth,c.PhoneNumber,\n"
                 + "c.IdentityCard,c.Gender,c.[Address],c.Email,c.HireDate as HireDateCustomer,c.[Status] as CustomerStatus,\n"
@@ -42,8 +42,8 @@ public class ContractDBContext extends DBContext {
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 Contract ct = new Contract();
                 ct.setId(rs.getInt("Id"));
                 ct.setDeposit(rs.getDouble("Deposit"));
@@ -89,7 +89,7 @@ public class ContractDBContext extends DBContext {
                 ct.setRoom(rm);
                 ArrayList<Conduct> list = getListConductByContractId(rs.getInt("Id"));
                 ct.setListConduct(list);
-                
+
                 listContract.add(ct);
             }
         } catch (SQLException ex) {
@@ -242,7 +242,7 @@ public class ContractDBContext extends DBContext {
         }
         return null;
     }
-    
+
     public ArrayList<Conduct> getListConductByContractId(int id) {
         String sql = "select c.Id,c.[Name],c.Price,c.TypeId,t.[Name] as ConductTypeName\n"
                 + "from ConductService as s\n"
@@ -318,5 +318,27 @@ public class ContractDBContext extends DBContext {
             Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+
+    public void updatePriceConduct(int id) {
+        String sql = "update [Contract] set PriceConduct = \n"
+                + "					(\n"
+                + "                                         select SUM(c.Price)\n"
+                + "                                         from ConductService as s\n"
+                + "                                         inner join Conduct as c on s.ConductId = c.Id\n"
+                + "                                         inner join [Contract] as t on s.ContractId = t.Id\n"
+                + "                                         where t.Id = ? and s.[Status] = 0\n"
+                + "                                         group by t.Id\n"
+                + "					)\n"
+                + "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.setInt(2, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

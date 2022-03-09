@@ -25,7 +25,7 @@ public class PaymentDBContext extends DBContext{
     
     public ArrayList<Payment> getListPaymentToCreate(){
         String sql = "select Id,ContractId,CurrentBillId,FromDate,ToDate,[Status] from Payment\n" +
-                    "where CurrentBillId is Null and [Status] = 0 ";
+                    "where CurrentBillId is Null and [Status] = 0 and ToDate <= GETDATE() ";
         ContractDBContext contractSql = new ContractDBContext();
         ArrayList<Payment> list = new ArrayList<>();
         try {

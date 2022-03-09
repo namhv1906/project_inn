@@ -178,12 +178,17 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class='bx bx-cog'></i>
-                        <span class="link_name">Thiết lập</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thiết lập</a></li>
+                    <div class="iocn-link">
+                        <a href="">
+                            <i class='bx bx-book-alt'></i>
+                            <span class="link_name">Thiết lập</span>
+                        </a>
+                        <i class='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="">Thiết lập</a></li>
+                        <li><a href="../setting/service">Tiền dịch vụ</a></li>
+                        <li><a href="../setting/conduct">Tiền đồ dùng</a></li>
                     </ul>
                 </li>
             </ul>

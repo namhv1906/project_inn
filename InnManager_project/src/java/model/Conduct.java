@@ -51,5 +51,7 @@ public class Conduct {
         this.conductType = conductType;
     }
     
-    
+    public long getPriceLong(){
+        return (long)price;
+    }
 }

@@ -91,4 +91,26 @@ public class BillDBContext extends DBContext{
         }
         return null;
     }
+    
+    public ArrayList<Bill> getListBill(){
+        String sql = "select Id,PriceTotal from Bill";
+        ServiceDetailDBContext serviceTypeSql = new ServiceDetailDBContext();
+        ArrayList<Bill> list = new ArrayList<>();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Bill bill = new Bill();
+                bill.setId(rs.getInt("Id"));
+                bill.setPrice(rs.getDouble("PriceTotal"));
+                ArrayList<ServiceDetail> listServiceDetail = serviceTypeSql.getListServiceDetailByBillId(rs.getInt("Id"));
+                bill.setListService(listServiceDetail);
+                
+                list.add(bill);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BillDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

@@ -37,4 +37,18 @@ public class ServiceTypeDBContext extends DBContext{
         }
         return list;
     }
+    
+    public void updatePriceService(int id,double price){
+        String sql = "update ServiceType set Price = ?\n" +
+                    "where Id = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setDouble(1, price);
+            stm.setInt(2, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }
