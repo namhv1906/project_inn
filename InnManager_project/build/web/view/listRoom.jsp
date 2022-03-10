@@ -23,6 +23,73 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .sidebar .nav-links .notification::before{
+                content: "${sessionScope.listPaymentToCreate.size()}";
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                position: absolute;
+                background-color: red;
+                color: white;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+            
+            .sidebar .nav-links .bill::before{
+                content: "${sessionScope.listPaymentToPay.size()}";
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                position: absolute;
+                background-color: red;
+                color: white;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            @media (max-width: 768px){
+                .sidebar .nav-links .notification::before{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    position: absolute;
+                    background-color: red;
+                    color: white;
+                    top: 50%;
+                    right: 5px;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .sidebar .nav-links .bill::before{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    position: absolute;
+                    background-color: red;
+                    color: white;
+                    top: 50%;
+                    right: 5px;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        </style>
     </head>
 
     <body>
@@ -76,7 +143,11 @@
                         <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
                     </ul>
                 </li>
-                <li>
+                <li
+                    <c:if test="${sessionScope.listPaymentToCreate.size() > 0}">
+                        class="notification"
+                    </c:if>
+                    >
                     <a href="../notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
@@ -85,7 +156,11 @@
                         <li><a class="link_name" href="../notification">Thông báo</a></li>
                     </ul>
                 </li>
-                <li>
+                <li
+                    <c:if test="${sessionScope.listPaymentToPay.size() > 0}">
+                        class="bill"
+                    </c:if>
+                    >
                     <a href="../bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>

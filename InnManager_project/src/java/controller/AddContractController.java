@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.base.BaseController;
 import dal.AccountDBContext;
 import dal.ConductDBContext;
 import dal.ContractDBContext;
@@ -32,7 +33,7 @@ import validator.InputValidation;
  *
  * @author firem
  */
-public class AddContractController extends HttpServlet {
+public class AddContractController extends BaseController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,7 +45,7 @@ public class AddContractController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         //lay thong tin tu web
@@ -71,7 +72,7 @@ public class AddContractController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean flag = false;
         AccountDBContext accountSql = new AccountDBContext();

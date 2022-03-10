@@ -271,4 +271,17 @@ public class CustomerDBContext extends DBContext{
         }
         return -1;
     }
+    
+    public void updateStatusCustomerToFalse(int id){
+        String sql = "update Customer set [Status] = 0\n" +
+                    "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

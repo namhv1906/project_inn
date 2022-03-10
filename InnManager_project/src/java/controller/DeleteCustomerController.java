@@ -5,22 +5,22 @@
  */
 package controller;
 
-import controller.base.BaseController;
+import dal.ContractDBContext;
 import dal.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Contract;
 import model.Customer;
 
 /**
  *
  * @author firem
  */
-public class ListCustomerController extends BaseController {
+public class DeleteCustomerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,43 +33,19 @@ public class ListCustomerController extends BaseController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //lay thong tin tu web
-        String searchString = request.getParameter("search");
-        if(searchString == null){
-            searchString = "";
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteCustomerController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteCustomerController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        String statusString = request.getParameter("status");
-        if(statusString == null){
-            statusString = "-1";
-        }
-        int status = Integer.parseInt(statusString);
-        
-        //lay thong tin tu data
-        CustomerDBContext customerSql = new CustomerDBContext();
-        ArrayList<Customer> listCustomer = customerSql.getListCustomerByCondition(status, searchString);
-        
-        //phan trang
-        String indexPageString = request.getParameter("page");
-        int pageSize = 10;
-        int size = listCustomer.size();
-        int numberPage = (size % pageSize == 0) ? (size / pageSize) : ((size/pageSize) + 1);
-        int indexPage;
-        if(indexPageString == null){
-            indexPage = 1;
-        }else{
-            indexPage = Integer.parseInt(indexPageString);
-        }
-        int start =(indexPage - 1) * pageSize;
-        int end = Math.min(indexPage * pageSize, size);
-        ArrayList<Customer> listCustomerPaging = customerSql.getListCustomerPaging(listCustomer, start, end);
-        
-        request.setAttribute("listCustomer", listCustomerPaging);
-        request.setAttribute("indexPage", indexPage);
-        request.setAttribute("numberPage", numberPage);
-        request.setAttribute("status", status);
-        request.setAttribute("search", searchString);
-        
-        request.getRequestDispatcher("../../view/listCustomer.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +58,7 @@ public class ListCustomerController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -96,9 +72,24 @@ public class ListCustomerController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idCustomerString = request.getParameter("idCustomer");
+        int idCustomer = Integer.parseInt(idCustomerString);
+        CustomerDBContext customerSql = new CustomerDBContext();
+        Customer customer = customerSql.getCustomerById(idCustomer);
+        String idCustomerChangeString = request.getParameter("idCustomerChange");
+        if(idCustomerChangeString == null){
+            customerSql.updateStatusCustomerToFalse(idCustomer);
+        }else{
+            int idCustomerChange = Integer.parseInt(idCustomerChangeString);
+            ContractDBContext contractSql = new ContractDBContext();
+            Contract contract = contractSql.getContractByIdRoom(customer.getRoom().getId(), 1);
+            contractSql.updateCustomerContract(contract.getId(), idCustomerChange);
+            customerSql.updateStatusCustomerToFalse(idCustomer);
+        }
+        response.sendRedirect("list");
+        
     }
 
     /**

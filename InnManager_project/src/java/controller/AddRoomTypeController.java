@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.base.BaseController;
 import dal.RoomTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import validator.InputValidation;
  *
  * @author firem
  */
-public class AddRoomTypeController extends HttpServlet {
+public class AddRoomTypeController extends BaseController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -31,7 +32,7 @@ public class AddRoomTypeController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("../../view/addRoomType.jsp").forward(request, response);
     }
@@ -45,7 +46,7 @@ public class AddRoomTypeController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
         String priceString = request.getParameter("price");

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.base.BaseController;
 import dal.ConductDBContext;
 import dal.ContractDBContext;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import model.Contract;
  *
  * @author firem
  */
-public class SettingConductController extends HttpServlet {
+public class SettingConductController extends BaseController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -33,7 +34,7 @@ public class SettingConductController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ConductDBContext conductSql = new ConductDBContext();
         ArrayList<Conduct> listConduct = conductSql.getListConduct();
@@ -51,7 +52,7 @@ public class SettingConductController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ConductDBContext conductSql = new ConductDBContext();
         ArrayList<Conduct> listConduct = conductSql.getListConduct();

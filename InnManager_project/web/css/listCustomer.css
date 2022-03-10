@@ -229,6 +229,12 @@ and open the template in the editor.
   margin-right: 15px;
 }
 
+.detail .detail-container-information .detail-information .column-action span{
+  margin-left: 15px;
+  margin-right: 15px;
+  color: #0d6efd;
+}
+
 .paging{
   padding-top: 20px;
   padding-bottom: 20px;
@@ -268,6 +274,67 @@ and open the template in the editor.
   color: rgba(0, 0, 0,0.8);
 }
 
+.model-form {
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  min-height: 25rem;
+  transform: translate(-50%, -50%);
+  max-width: 40rem;
+  background-color: #f3f3f3;
+  padding: 2rem 3rem;
+  z-index: 1000;
+  opacity: 0.8;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+
+.model-form #model-change p {
+  color: rgb(82, 43, 43);
+  font-weight: 600;
+  text-align: justify;
+}
+
+.model-form #model-change .input-number{
+  width: 20%;
+  height: 100%;
+  text-align: center;
+}
+
+.model-form #model-change .button-submit-form{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 200;
+  transition: all 0.5s;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.btn_close {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  font-family: inherit;
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 3rem;
+}
 
 @media (max-width: 768px) {
   .sidebar{

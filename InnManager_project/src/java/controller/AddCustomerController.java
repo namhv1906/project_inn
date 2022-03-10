@@ -5,6 +5,7 @@
  */
 package controller;
 
+import controller.base.BaseController;
 import dal.AccountDBContext;
 import dal.ContractDBContext;
 import dal.CustomerDBContext;
@@ -26,7 +27,7 @@ import model.Room;
  *
  * @author firem
  */
-public class AddCustomerController extends HttpServlet {
+public class AddCustomerController extends BaseController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,7 +39,7 @@ public class AddCustomerController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //lay thong tin tu web
         String idRoomString = request.getParameter("idRoom");
@@ -77,7 +78,7 @@ public class AddCustomerController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean flag = false;
         AccountDBContext accountSql = new AccountDBContext();

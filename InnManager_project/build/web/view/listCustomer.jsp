@@ -22,6 +22,73 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .sidebar .nav-links .notification::before{
+                content: "${sessionScope.listPaymentToCreate.size()}";
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                position: absolute;
+                background-color: red;
+                color: white;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            .sidebar .nav-links .bill::before{
+                content: "${sessionScope.listPaymentToPay.size()}";
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                position: absolute;
+                background-color: red;
+                color: white;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            @media (max-width: 768px){
+                .sidebar .nav-links .notification::before{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    position: absolute;
+                    background-color: red;
+                    color: white;
+                    top: 50%;
+                    right: 5px;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .sidebar .nav-links .bill::before{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    position: absolute;
+                    background-color: red;
+                    color: white;
+                    top: 50%;
+                    right: 5px;
+                    transform: translateY(-50%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        </style>
     </head>
 
     <body>
@@ -75,7 +142,11 @@
                         <li><a class="link_name" href="list">Khách trọ</a></li>
                     </ul>
                 </li>
-                <li>
+                <li
+                    <c:if test="${sessionScope.listPaymentToCreate.size() > 0}">
+                        class="notification"
+                    </c:if>
+                    >
                     <a href="../notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
@@ -84,7 +155,11 @@
                         <li><a class="link_name" href="../notification">Thông báo</a></li>
                     </ul>
                 </li>
-                <li>
+                <li
+                    <c:if test="${sessionScope.listPaymentToPay.size() > 0}">
+                        class="bill"
+                    </c:if>
+                    >
                     <a href="../bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
@@ -171,9 +246,9 @@
                                     <td class="text-center">${cs.status?"<i class='bx bx-check' style='color: green;'></i>" : "<i class='bx bx-x' style='color: red;'></i>"}</td>
                                     <td class="column-action">
                                         <c:if test="${cs.status}">
-                                            <a href="" class="button-link"><i class='bx bx-trash'></i></a>
+                                            <span class="button-link" onclick="openFunctionModal(${cs.id})"><i class='bx bx-trash'></i></span>
                                             <a href="" class="button-link"><i class='bx bx-edit'></i></a>
-                                        </c:if>
+                                            </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -220,9 +295,14 @@
                     </c:if>
                 </div>
             </div>
-        </section>
+        </section> 
 
-
+        <div class="model-delete">
+            <div class="model-form hidden">
+                <button class="btn_close" type="button" onclick="closeFunctionModal()">&times;</button>
+            </div>
+            <div class="overlay hidden"></div>
+        </div>
 
         <script>
             let arrow = document.querySelectorAll(".arrow");
@@ -236,7 +316,53 @@
             function submitSearchForm() {
                 document.getElementById("search-input-form").submit();
             }
+
+            const modal = document.querySelector('.model-form');
+            const overlay = document.querySelector('.overlay');
+//            const btnOpen = document.querySelectorAll('.btn_open');
+
+
+            //*Modal window
+            function openFunctionModal(idPayment) {
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                $.ajax({
+                    url: "/InnManager_project/dataDeleteCustomer",
+                    type: "get",
+                    data: {
+                        idPayment: idPayment
+                    },
+                    success: function (response) {
+                        modal.innerHTML += response;
+                    }
+                });
+            }
+
+            function closeFunctionModal() {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            }
+
+
+            const closeModal = function () {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            };
+
+            overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
         </script>
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
