@@ -99,7 +99,7 @@ public class BillDBContext extends DBContext{
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 Bill bill = new Bill();
                 bill.setId(rs.getInt("Id"));
                 bill.setPrice(rs.getDouble("PriceTotal"));

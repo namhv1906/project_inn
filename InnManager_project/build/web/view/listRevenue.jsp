@@ -99,12 +99,12 @@
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="#">
+                    <a href="../home">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Thống kê chung</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thống kê chung</a></li>
+                        <li><a class="link_name" href="../home">Thống kê chung</a></li>
                     </ul>
                 </li>
                 <li>
@@ -236,18 +236,28 @@
                             <th class="text-center">Đến ngày</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
+                        <c:set var="revenue" scope="page" value="0"/>
                         <c:forEach items="${requestScope.listPaymentHistory}" var="ph">
+                            <c:set var="revenue" scope="page" value="${pageScope.revenue + ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}"/>
                             <tr>
                                 <td class="text-center align-middle column-information"><span class="button-link btn_open"
                                                                                               onclick="openFunctionModal(${ph.id})"><i class='bx bx-info-circle'></i></span></td>
                                 <td class="text-center align-middle">${ph.payment.contract.room.name}</td>
-                                <td class="text-center align-middle">${ph.bill.priceLong}</td>
+                                <td class="text-center align-middle">${ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}</td>
                                 <td class="text-center align-middle">${ph.fromDate}</td>
                                 <td class="text-center align-middle">${ph.toDate}</td>
                                 <td class="text-center"><a class="btn btn-primary" href="../room/information?id=${ph.payment.contract.room.id}&status=${ph.payment.contract.status?"1":"0"}" role="button">Xem phòng</a></td>
                             </tr>
                         </c:forEach>
                     </table>
+                    <div class="result-price" style="width: 30%;">
+                        <table class="table">
+                            <tr>
+                                <td>Tổng:</td>
+                                <td>${pageScope.revenue}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

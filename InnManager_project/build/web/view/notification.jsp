@@ -100,12 +100,12 @@
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="#">
+                    <a href="home">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Thống kê chung</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Thống kê chung</a></li>
+                        <li><a class="link_name" href="home">Thống kê chung</a></li>
                     </ul>
                 </li>
                 <li>

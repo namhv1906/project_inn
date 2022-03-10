@@ -1,6 +1,6 @@
 <%-- 
-    Document   : settingConduct
-    Created on : Mar 9, 2022, 9:18:57 PM
+    Document   : home
+    Created on : Mar 10, 2022, 7:59:17 PM
     Author     : firem
 --%>
 
@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../../css/settingConduct.css">
+        <link rel="stylesheet" href="../css/home.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -23,6 +23,13 @@
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            .statistical .left .statistical-model{
+                width: 200px;
+                height: 200px;
+                background-image: conic-gradient(red 0deg,red ${requestScope.deg}deg, blue ${requestScope.deg}deg);
+                border-radius: 50%;
+            }
+
             .sidebar .nav-links .notification::before{
                 content: "${sessionScope.listPaymentToCreate.size()}";
                 width: 20px;
@@ -99,47 +106,47 @@
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="../home">
+                    <a href="home">
                         <i class='bx bx-grid-alt'></i>
                         <span class="link_name">Thống kê chung</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../home">Thống kê chung</a></li>
+                        <li><a class="link_name" href="#">Thống kê chung</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="../room/list">
+                        <a href="room/list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
-                        <li><a href="../room/add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="room/list">Phòng trọ</a></li>
+                        <li><a href="room/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="../roomtype/list">
+                        <a href="roomtype/list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
-                        <li><a href="../roomtype/add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="roomtype/list">Loại phòng</a></li>
+                        <li><a href="roomtype/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="../customer/list">
+                    <a href="customer/list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../cusotmer/list">Khách trọ</a></li>
+                        <li><a class="link_name" href="cusotmer/list">Khách trọ</a></li>
                     </ul>
                 </li>
                 <li 
@@ -147,12 +154,12 @@
                         class="notification"
                     </c:if>
                     >
-                    <a href="../notification">
+                    <a href="notification">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Thông báo</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../notification">Thông báo</a></li>
+                        <li><a class="link_name" href="notification">Thông báo</a></li>
                     </ul>
                 </li>
                 <li
@@ -160,21 +167,21 @@
                         class="bill"
                     </c:if>
                     >
-                    <a href="../bill/add">
+                    <a href="bill/add">
                         <i class='bx bx-compass'></i>
                         <span class="link_name">Hóa đơn</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../bill/add">Hóa đơn</a></li>
+                        <li><a class="link_name" href="bill/add">Hóa đơn</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="../revenue/list">
+                    <a href="revenue/list">
                         <i class='bx bx-history'></i>
                         <span class="link_name">Doanh thu</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../revenue/list">Doanh thu</a></li>
+                        <li><a class="link_name" href="revenue/list">Doanh thu</a></li>
                     </ul>
                 </li>
                 <li>
@@ -187,42 +194,102 @@
                     </div>
                     <ul class="sub-menu">
                         <li><a class="link_name" href="">Thiết lập</a></li>
-                        <li><a href="service">Tiền dịch vụ</a></li>
-                        <li><a href="conduct">Tiền đồ dùng</a></li>
+                        <li><a href="setting/service">Tiền dịch vụ</a></li>
+                        <li><a href="setting/conduct">Tiền đồ dùng</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Thiết lập đồ dùng</span>
+                <span class="text">Thống kê chung</span>
             </div>
         </section>
         <section class="content-section">
-            <c:if test="${requestScope.successfull != null && requestScope.successfull == 1}">
-                <div class="successful">
-                    <span>Thiết lập giá đồ dùng thành công</span>
-                </div>
-            </c:if>
-            <div class="detail">
-                <form class="detail-content" action="conduct" method="POST">
-                    <c:forEach items="${requestScope.listConduct}" var="cd">
-                        <div class="detail-container">
-                            <label for="conduct${cd.id}">TIền ${cd.name}</label>
-                            <input type="text" name="conduct${cd.id}" id="conduct${cd.id}" class="detail-input" value="${cd.priceLong}">
-                        </div>
-                    </c:forEach>
-                    <div class="detail-container detail-button-link" style="padding-bottom: 20px;">
-                        <button class="detail-submit">
-                            <i class='bx bx-plus'></i>
-                            <input type="submit" value="Tạo mới">
-                        </button>
+            <div class="row detail">
+                <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
+                    <div class="content-container">
+                        <a href="">
+                            <p class="detail-name">Tổng phòng trọ</p>
+                            <div class="detail-infomation">
+                                <h3 class="information-number">${requestScope.totalRoom}</h3>
+                                <i class='bx bx-home'></i>
+                            </div>
+                        </a>
                     </div>
-                </form>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
+                    <div class="content-container">
+                        <a href="">
+                            <p class="detail-name">Phòng đang thuê</p>
+                            <div class="detail-infomation">
+                                <h3 class="information-number">${requestScope.totalHireRoom}</h3>
+                                <i class='bx bx-home-smile'></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
+                    <div class="content-container">
+                        <a href="">
+                            <p class="detail-name">Phòng trống</p>
+                            <div class="detail-infomation">
+                                <h3 class="information-number">${requestScope.totalEmptyRoom}</h3>
+                                <i class='bx bx-home-circle'></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
+                    <div class="content-container">
+                        <a href="">
+                            <p class="detail-name">Khách hàng thuê</p>
+                            <div class="detail-infomation">
+                                <h3 class="information-number">${requestScope.totalHireCustomer}</h3>
+                                <i class='bx bx-body'></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
+                    <div class="content-container">
+                        <a href="">
+                            <p class="detail-name">Tổng doanh thu</p>
+                            <div class="detail-infomation">
+                                <h3 class="information-number">${requestScope.revenue}</h3>
+                                <i class='bx bx-line-chart-down'></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row statistical">
+                <div class="statistical-tittle">
+                    <h2>Biểu đồ phòng trọ</h2>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 left">
+                    <div class="statistical-model"></div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 right">
+                    <div class="statistical-description">
+                        <table>
+                            <tr class="part">
+                                <td class="color-part">
+                                    <div style="background-color: red;" class="colorr"></div>
+                                </td>
+                                <td class="content-part">Phòng đang thuê</td>
+                            </tr>
+                            <tr class="part">
+                                <td class="color-part">
+                                    <div style="background-color: blue;" class="colorr"></div>
+                                </td>
+                                <td class="content-part">Phòng trống</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
-
-
 
         <script>
             let arrow = document.querySelectorAll(".arrow");
@@ -240,3 +307,6 @@
     </body>
 
 </html>
+
+
+

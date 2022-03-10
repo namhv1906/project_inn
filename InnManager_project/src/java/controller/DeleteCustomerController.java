@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dal.AccountDBContext;
 import dal.ContractDBContext;
 import dal.CustomerDBContext;
 import java.io.IOException;
@@ -87,7 +88,8 @@ public class DeleteCustomerController extends HttpServlet {
             Contract contract = contractSql.getContractByIdRoom(customer.getRoom().getId(), 1);
             contractSql.updateCustomerContract(contract.getId(), idCustomerChange);
             customerSql.updateStatusCustomerToFalse(idCustomer);
-        }
+        }    
+        
         response.sendRedirect("list");
         
     }
