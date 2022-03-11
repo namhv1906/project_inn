@@ -191,6 +191,15 @@
                         <li><a href="conduct">Tiền đồ dùng</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="../../logout">
+                        <i class='bx bx-exit'></i>
+                        <span class="link_name">Đăng xuất</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="../../logout">Đăng xuất</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <section class="home-section">

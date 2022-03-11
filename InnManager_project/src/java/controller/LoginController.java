@@ -9,6 +9,7 @@ import dal.AccountDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,10 +53,21 @@ public class LoginController extends HttpServlet {
         String userLogin = request.getParameter("user");
         String passLogin = request.getParameter("pass");
         Account ac = db.getAccount(userLogin, passLogin);
-        if(ac != null){
+        if (ac != null) {
             request.getSession().setAttribute("account", ac);
-            response.sendRedirect("index.html");
-        }else{
+            request.getSession().setMaxInactiveInterval(1800);
+            Cookie c_user = new Cookie("username", userLogin);
+            Cookie c_pass = new Cookie("password", passLogin);
+            c_user.setMaxAge(3600);
+            c_pass.setMaxAge(3600);
+            response.addCookie(c_user);
+            response.addCookie(c_pass);
+            if (ac.getUsername().equals("admin") && ac.getPassword().equals("123")) {
+                response.sendRedirect("admin/home");
+            } else {
+                response.sendRedirect("user/notification");
+            }
+        } else {
             String errorMessage = "Username or Password wrong";
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("view/login.jsp").forward(request, response);

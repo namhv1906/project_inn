@@ -57,11 +57,11 @@ public class LoadDataPaymentHistory extends HttpServlet {
             "                        <th class=\"text-center align-middle\">Số lượng</th>\n" +
             "                    </tr>");
                 for (ServiceDetail sd : ph.getBill().getListService()) {
-                    totalService += sd.getQuantity() * sd.getService().getPrice();
+                    totalService += sd.getQuantity() * sd.getPrice();
                     out.println("<tr>\n" +
             "                        <td class=\"text-center align-middle\">" + sd.getService().getName() + "</td>\n" +
             "                        <td class=\"text-center align-middle\">" + sd.getService().getUnit() + "</td>\n" +
-            "                        <td class=\"text-center align-middle\">" + sd.getService().getPrice() + "</td>\n" +
+            "                        <td class=\"text-center align-middle\">" + sd.getPrice() + "</td>\n" +
             "                        <td class=\"text-center align-middle\">" + sd.getQuantity() + "</td>\n" +
             "                    </tr>");
                 }

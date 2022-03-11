@@ -65,12 +65,6 @@ public class SettingServiceController extends BaseController {
             double price = Double.parseDouble(priceString);
             serviceTypeSql.updatePriceService(st.getId(), price);
         }
-
-        BillDBContext billSql = new BillDBContext();
-        ArrayList<Bill> listBill = billSql.getListBill();
-        for (Bill bill : listBill) {
-            billSql.updatePrice(bill.getId());
-        }
         successfull = 1;
         request.setAttribute("successfull", successfull);
         request.getRequestDispatcher("../../view/settingService.jsp").forward(request, response);

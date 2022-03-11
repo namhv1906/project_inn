@@ -21,7 +21,7 @@ import model.ServiceType;
  */
 public class ServiceDetailDBContext extends DBContext{
     public ArrayList<ServiceDetail> getListServiceDetailByBillId(int id){
-        String sql = "select b.Id,b.Quanlity,\n" +
+        String sql = "select b.Id,b.Quanlity,b.Price as PriceServiceBill,\n" +
                     "b.ServiceTypeId,s.[Name],s.Price,s.Unit,\n" +
                     "b.BillId,l.PriceTotal\n" +
                     "from ServiceBill as b\n" +
@@ -36,6 +36,7 @@ public class ServiceDetailDBContext extends DBContext{
             while(rs.next()){
                 ServiceDetail sd = new ServiceDetail();
                 sd.setId(rs.getInt("Id"));
+                sd.setPrice(rs.getDouble("PriceServiceBill"));
                 
                 Bill bill = new Bill();
                 bill.setId(rs.getInt("BillId"));
@@ -59,20 +60,23 @@ public class ServiceDetailDBContext extends DBContext{
         return list;
     }
     
-    public void insertServiceBill(int idBill,int idService,int quantity){
+    public void insertServiceBill(int idBill,int idService,double price,int quantity){
         String sql = "INSERT INTO [dbo].[ServiceBill]\n" +
                     "           ([BillId]\n" +
                     "           ,[ServiceTypeId]\n" +
+                    "           ,[Price]\n" +
                     "           ,[Quanlity])\n" +
                     "     VALUES\n" +
                     "           (?\n" +
+                    "           ,?\n" +
                     "           ,?\n" +
                     "           ,?)";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, idBill);
             stm.setInt(2, idService);
-            stm.setInt(3, quantity);
+            stm.setDouble(3, price);
+            stm.setInt(4, quantity);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDetailDBContext.class.getName()).log(Level.SEVERE, null, ex);

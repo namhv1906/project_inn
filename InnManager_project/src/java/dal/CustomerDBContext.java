@@ -285,4 +285,49 @@ public class CustomerDBContext extends DBContext{
         }
         
     }
+    
+    public Customer getCustomerByAccountId(int id){
+        String sql = "select c.Id,c.[Name],c.DateOfBirth,c.Gender,c.PhoneNumber,c.IdentityCard,c.[Address],c.Email,c.HireDate,c.[Status],\n" +
+                    "c.RoomId,r.[Name] as NameRoom,r.[Floor],r.[Status] as statusRoom,r.TypeId,\n" +
+                    "c.AccountId,a.Username,a.[Password]\n" +
+                    "from Customer as c \n" +
+                    "inner join Room as r on c.RoomId = r.Id\n" +
+                    "inner join Account as a on c.AccountId = a.Id\n"+
+                    "where a.Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Customer cs = new Customer();
+                cs.setId(rs.getInt("Id"));
+                cs.setName(rs.getString("Name"));
+                cs.setDob(rs.getDate("DateOfBirth"));
+                cs.setGender(rs.getBoolean("Gender"));
+                cs.setPhone(rs.getString("PhoneNumber"));
+                cs.setIdentity(rs.getString("IdentityCard"));
+                cs.setAddress(rs.getString("Address"));
+                cs.setEmail(rs.getString("Email"));
+                cs.setHireDate(rs.getDate("HireDate"));
+                cs.setStatus(rs.getBoolean("Status"));
+                Room room = new Room();
+                room.setId(rs.getInt("RoomId"));
+                room.setName(rs.getString("NameRoom"));
+                room.setFloor(rs.getInt("Floor"));
+                RoomType rt = new RoomType();
+                rt.setId(rs.getInt("TypeId"));
+                room.setRoomType(rt);
+                cs.setRoom(room);
+                Account ac = new Account();
+                ac.setId(rs.getInt("AccountId"));
+                ac.setUsername(rs.getString("Username"));
+                ac.setPassword(rs.getString("Password"));
+                cs.setAccount(ac);
+                return cs;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

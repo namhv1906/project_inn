@@ -14,6 +14,7 @@ public class ServiceDetail {
     private Bill bill;
     private ServiceType service;
     private int quantity;
+    private double Price;
 
     public ServiceDetail() {
         bill = new Bill();
@@ -50,6 +51,14 @@ public class ServiceDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(double Price) {
+        this.Price = Price;
     }
     
     

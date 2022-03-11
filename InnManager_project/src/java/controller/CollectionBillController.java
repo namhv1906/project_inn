@@ -98,7 +98,7 @@ public class CollectionBillController extends HttpServlet {
             String numberString = request.getParameter("service" + st.getId());
             int number = Integer.parseInt(numberString);
             if(number != 0){
-                serviceDetailSql.insertServiceBill(idBill, st.getId(), number);
+                serviceDetailSql.insertServiceBill(idBill, st.getId(),st.getPrice(), number);
             }
         }
         

@@ -6,6 +6,8 @@
 package controller;
 
 import controller.base.BaseController;
+import dal.ContractDBContext;
+import dal.CustomerDBContext;
 import dal.PaymentHistoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Contract;
+import model.Customer;
+import model.Payment;
 import model.PaymentHistory;
 
 /**
@@ -33,7 +39,7 @@ public class ListRevenueController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {        
         String fromDateString = request.getParameter("fromDate");
         String toDateString = request.getParameter("toDate");
         String searchString = request.getParameter("search");
@@ -50,7 +56,7 @@ public class ListRevenueController extends BaseController {
         }
         PaymentHistoryDBContext paymentHistorySql = new PaymentHistoryDBContext();
         ArrayList<PaymentHistory> listPaymentHistory = paymentHistorySql.getListPaymentHistoryByCondition(fromDateString, toDateString, searchString);
-        
+               
         request.setAttribute("listPaymentHistory", listPaymentHistory);
         request.setAttribute("fromDate", fromDateString);
         request.setAttribute("toDate", toDateString);

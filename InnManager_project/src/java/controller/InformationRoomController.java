@@ -6,6 +6,7 @@
 package controller;
 
 import controller.base.BaseController;
+import dal.AccountDBContext;
 import dal.ConductDBContext;
 import dal.ContractDBContext;
 import dal.CustomerDBContext;
@@ -13,9 +14,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 import model.ConductDetail;
 import model.Contract;
 import model.Customer;
@@ -37,12 +40,35 @@ public class InformationRoomController extends BaseController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null)//not login, some cookies
+        {
+            String username = null;
+            String password = null;
+            for (Cookie cooky : cookies) {
+                if (cooky.getName().equals("username")) {
+                    username = cooky.getValue();
+                }
+                if (cooky.getName().equals("password")) {
+                    password = cooky.getValue();
+                }
+            }
+            if (username != null && password != null) {
+                AccountDBContext db = new AccountDBContext();
+                Account account = db.getAccount(username, password);
+                if (account != null) {
+                    request.getSession().setAttribute("account", account);
+                    request.getSession().setMaxInactiveInterval(1800);
+                }
+            }
+        }
+        
         //lay thong tin tu web
         String idString = request.getParameter("id");
         int id = Integer.parseInt(idString);
         String statusString = request.getParameter("status");
         int status = Integer.parseInt(statusString);
-        
+
         //lay thong tin tu data
         ContractDBContext contractSql = new ContractDBContext();
         Contract contract = contractSql.getContractByIdRoom(id, status);
@@ -50,7 +76,7 @@ public class InformationRoomController extends BaseController {
         ArrayList<ConductDetail> listConductDetail = conductSql.getListConducttDetail(contract.getListConduct());
         CustomerDBContext customerSql = new CustomerDBContext();
         ArrayList<Customer> listCustomer = customerSql.getListCustomerByRoomId(id);
-        
+
         request.setAttribute("contract", contract);
         request.setAttribute("listConductDetail", listConductDetail);
         request.setAttribute("listCustomer", listCustomer);
