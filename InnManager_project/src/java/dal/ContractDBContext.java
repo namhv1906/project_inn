@@ -355,4 +355,16 @@ public class ContractDBContext extends DBContext {
         }
         
     }
+    
+    public void updateStatusContract(int id){
+        String sql = "update [Contract] set [Status] = 0\n" +
+                    "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

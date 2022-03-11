@@ -110,4 +110,18 @@ public class ConductDBContext extends DBContext{
             Logger.getLogger(ConductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateConductService(int idContract,int idConduct,String reason){
+        String sql = "update ConductService set [Status] = 0, Reason = ?\n" +
+                    "where ContractId = ? and ConductId = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, reason);
+            stm.setInt(2, idContract);
+            stm.setInt(3, idConduct);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

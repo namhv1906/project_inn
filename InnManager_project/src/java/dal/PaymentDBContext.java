@@ -204,4 +204,45 @@ public class PaymentDBContext extends DBContext{
         }
         
     }
+    
+    public void updateStatusPayment(int id){
+        String sql = "update Payment set [Status] = 1\n" +
+                    "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public Payment getPaymentByContractId(int id){
+        String sql = "select p.Id,p.ContractId,p.CurrentBillId,p.FromDate,p.ToDate,p.[Status]\n" +
+                    "from Payment as p\n" +
+                    "inner join [Contract] as c on p.ContractId = c.Id\n" +
+                    "where c.Id = ? ";
+        ContractDBContext contractSql = new ContractDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Payment pm = new Payment();
+                pm.setId(rs.getInt("Id"));
+                Contract contract = contractSql.getContractById(rs.getInt("ContractId"));
+                pm.getBill().setId(rs.getInt("CurrentBillId"));
+                pm.setContract(contract);
+                pm.setFromDate(rs.getDate("FromDate"));
+                pm.setToDate(rs.getDate("ToDate"));
+                pm.setStatus(rs.getBoolean("Status"));
+                
+                return pm;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

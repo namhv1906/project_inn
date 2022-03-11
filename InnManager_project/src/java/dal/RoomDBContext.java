@@ -260,4 +260,15 @@ public class RoomDBContext extends DBContext {
             Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateRoomForDeactive(int id){
+        String sql = "update Room set [Status] = 0 where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

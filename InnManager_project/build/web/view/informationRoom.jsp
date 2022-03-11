@@ -212,13 +212,18 @@
                     <span>${sessionScope.errorAddCustomer}</span>
                 </div>
             </c:if>
+            <c:if test="${sessionScope.errorCheckout != null}">
+                <div class="error">
+                    <span>${sessionScope.errorCheckout}</span>
+                </div>
+            </c:if>
             <div class="detail-container">
                 <div class="detail-tittle">
                     <p>Hợp đồng</p>
-                    <a class="btn btn-primary button-add" href="#" role="button">
+<!--                    <a class="btn btn-primary button-add" href="#" role="button">
                         <i class='bx bx-edit-alt'></i>
                         <span>Cập nhật thông tin</span>
-                    </a>
+                    </a>-->
                 </div>
                 <div class="detail-content-contract">
                     <table class="detail-information">
@@ -327,7 +332,7 @@
             </div>
             <div class="detail-container">
                 <div class="check-out">
-                    <a class="btn btn-danger button-checkOut" href="#" role="button">
+                    <a class="btn btn-danger button-checkOut" href="checkout?id=${requestScope.contract.id}" role="button">
                         <span>Check out</span>
                     </a>
                 </div>

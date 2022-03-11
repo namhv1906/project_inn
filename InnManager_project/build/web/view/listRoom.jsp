@@ -306,12 +306,12 @@
                                                 <span class="information-click">Thuê</span>
                                             </a>
                                         </button>
-                                        <button type="button" class="detail-infomation">
+<!--                                        <button type="button" class="detail-infomation">
                                             <a href="#">
                                                 <i class='bx bx-trash'></i>
                                                 <span class="information-click">Xóa</span>
                                             </a>
-                                        </button>
+                                        </button>-->
                                     </div>
                                 </c:if>
                             </div>
