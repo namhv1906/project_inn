@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,10 +56,10 @@ public class CheckoutRoomController extends HttpServlet {
         
         boolean flag = false;
         if (payment.getBill().getId() != 0) {
-            String errorCheckout = "phòng chưa trả tiền tháng";
-            HttpSession session = request.getSession();
-            session.setAttribute("errorCheckout", errorCheckout);
-            session.setMaxInactiveInterval(1);
+            String errorCheckout = "phong chua tra tien thang";
+            Cookie c_errorCheckout = new Cookie("errorCheckout", errorCheckout);
+            c_errorCheckout.setMaxAge(1);
+            response.addCookie(c_errorCheckout);
             flag = true;
         }
         if (flag) {

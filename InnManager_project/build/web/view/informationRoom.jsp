@@ -207,23 +207,23 @@
             </div>
         </section>
         <section class="content-section">
-            <c:if test="${sessionScope.errorAddCustomer != null}">
+            <c:if test="${requestScope.errorAddCustomer != null}">
                 <div class="error">
-                    <span>${sessionScope.errorAddCustomer}</span>
+                    <span>${requestScope.errorAddCustomer}</span>
                 </div>
             </c:if>
-            <c:if test="${sessionScope.errorCheckout != null}">
+            <c:if test="${requestScope.errorCheckout != null}">
                 <div class="error">
-                    <span>${sessionScope.errorCheckout}</span>
+                    <span>${requestScope.errorCheckout}</span>
                 </div>
-            </c:if>
+            </c:if>        
             <div class="detail-container">
                 <div class="detail-tittle">
                     <p>Hợp đồng</p>
-<!--                    <a class="btn btn-primary button-add" href="#" role="button">
-                        <i class='bx bx-edit-alt'></i>
-                        <span>Cập nhật thông tin</span>
-                    </a>-->
+                    <!--                    <a class="btn btn-primary button-add" href="#" role="button">
+                                            <i class='bx bx-edit-alt'></i>
+                                            <span>Cập nhật thông tin</span>
+                                        </a>-->
                 </div>
                 <div class="detail-content-contract">
                     <table class="detail-information">

@@ -330,4 +330,29 @@ public class CustomerDBContext extends DBContext{
         }
         return null;
     }
+    
+    public void editCustomer(Customer cs){
+        String sql = "update Customer set [Name] = ?,\n" +
+"					Gender = ?,\n" +
+"					DateOfBirth = ?,\n" +
+"					PhoneNumber = ?,\n" +
+"					IdentityCard = ?,\n" +
+"					[Address] = ?,\n" +
+"					Email = ?\n" +
+"                   where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, cs.getName());
+            stm.setBoolean(2, cs.isGender());
+            stm.setDate(3, cs.getDob());
+            stm.setString(4, cs.getPhone());
+            stm.setString(5, cs.getIdentity());
+            stm.setString(6, cs.getAddress());
+            stm.setString(7, cs.getEmail());
+            stm.setInt(8, cs.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

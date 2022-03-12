@@ -55,13 +55,13 @@ public class LoginController extends HttpServlet {
         Account ac = db.getAccount(userLogin, passLogin);
         if (ac != null) {
             request.getSession().setAttribute("account", ac);
-            request.getSession().setMaxInactiveInterval(1800);
-            Cookie c_user = new Cookie("username", userLogin);
-            Cookie c_pass = new Cookie("password", passLogin);
-            c_user.setMaxAge(3600);
-            c_pass.setMaxAge(3600);
-            response.addCookie(c_user);
-            response.addCookie(c_pass);
+//            request.getSession().setMaxInactiveInterval(1800);
+//            Cookie c_user = new Cookie("username", userLogin);
+//            Cookie c_pass = new Cookie("password", passLogin);
+//            c_user.setMaxAge(3600);
+//            c_pass.setMaxAge(3600);
+//            response.addCookie(c_user);
+//            response.addCookie(c_pass);
             if (ac.getUsername().equals("admin") && ac.getPassword().equals("123")) {
                 response.sendRedirect("admin/home");
             } else {

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,10 +55,10 @@ public class AddCustomerController extends BaseController {
         ArrayList<Customer> listCustomer = customerDBContext.getListCustomerByRoomId(idRoom);
         boolean flag = false;
         if (contract.getRoom().getRoomType().getQuantity() < listCustomer.size() + 1) {
-            String errorAddCustomer = "phòng đã hết chỗ trống";
-            HttpSession session = request.getSession();
-            session.setAttribute("errorAddCustomer", errorAddCustomer);
-            session.setMaxInactiveInterval(1);
+            String errorAddCustomer = "phong da het cho trong";
+            Cookie c_errorAddCustomer = new Cookie("errorAddCustomer", errorAddCustomer);
+            c_errorAddCustomer.setMaxAge(1);
+            response.addCookie(c_errorAddCustomer);
             flag = true;
         }
         if (flag) {

@@ -1,11 +1,12 @@
 <%-- 
-    Document   : informationRoom
-    Created on : Mar 4, 2022, 2:39:33 PM
+    Document   : editCustomer
+    Created on : Mar 12, 2022, 11:21:53 AM
     Author     : firem
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
@@ -13,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../../css/informationRoom.css">
+        <link rel="stylesheet" href="../../css/editCustomer.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -108,15 +109,15 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="list">
+                        <a href="../room/list">
                             <i class='bx bx-home'></i>
                             <span class="link_name">Phòng trọ</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="list">Phòng trọ</a></li>
-                        <li><a href="add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="../room/list">Phòng trọ</a></li>
+                        <li><a href="../room/add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
@@ -133,15 +134,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="../customer/list">
+                    <a href="list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
+                        <li><a class="link_name" href="list">Khách trọ</a></li>
                     </ul>
                 </li>
-                <li
+                <li 
                     <c:if test="${sessionScope.listPaymentToCreate.size() > 0}">
                         class="notification"
                     </c:if>
@@ -203,140 +204,99 @@
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Thông tin phòng ${requestScope.contract.room.name}</span>
+                <span class="text">Cập nhật thông tin khách hàng</span>
             </div>
         </section>
         <section class="content-section">
-            <c:if test="${requestScope.errorAddCustomer != null}">
-                <div class="error">
-                    <span>${requestScope.errorAddCustomer}</span>
+            <div class="detail">
+                <div class="detail-container">
+                    <div class="detail-avata">
+                        <img src="../../image/female.png" alt="">
+                    </div>
                 </div>
-            </c:if>
-            <c:if test="${requestScope.errorCheckout != null}">
-                <div class="error">
-                    <span>${requestScope.errorCheckout}</span>
-                </div>
-            </c:if>        
-            <div class="detail-container">
-                <div class="detail-tittle">
-                    <p>Hợp đồng</p>
-                    <!--                    <a class="btn btn-primary button-add" href="#" role="button">
-                                            <i class='bx bx-edit-alt'></i>
-                                            <span>Cập nhật thông tin</span>
-                                        </a>-->
-                </div>
-                <div class="detail-content-contract">
-                    <table class="detail-information">
-                        <tr>
-                            <td>Người đại diện</td>
-                            <td><a href="../customer/information?id=${requestScope.contract.customer.id}">${requestScope.contract.customer.name}</a></td>
-                        </tr>
-                        <tr>
-                            <td>Tiền đặt cọc</td>
-                            <td>${requestScope.contract.deposit}</td>
-                        </tr>
-                        <tr>
-                            <td>Ngày hiệu lực</td>
-                            <td>${requestScope.contract.hireDate}</td>
-                        </tr>
-                        <tr>
-                            <td>Ngày hết hiệu lực</td>
-                            <td>${requestScope.contract.checkOutDate == null ? "1" : "0"}</td>
-                        </tr>
-                        <tr>
-                            <td>Trạng thái</td>
-                            <c:if test="${requestScope.contract.status}">
-                                <td><span style="color: green;">Còn hiệu lực</span></td>
-                            </c:if>
-                            <c:if test="${!requestScope.contract.status}">
-                                <td><span style="color: red;">Hết hiệu lực</span></td>
-                            </c:if>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="detail-container">
-                <div class="detail-tittle">
-                    <p>Người trọ</p>
-                    <a class="btn btn-primary button-add" href="../customer/add?idRoom=${requestScope.idRoom}" role="button">
-                        <i class='bx bx-plus'></i>
-                        <span>Thêm khách hàng</span>
-                    </a>
-                </div>
-                <div class="detail-content-customer">
-                    <table class="table">
-                        <tr class="table-light">
-                            <th class="text-center">Tên khách hàng</th>
-                            <th class="text-center">Ngày sinh</th>
-                            <th class="text-center">Số điện thoại</th>
-                            <th class="text-center">&ensp;</th>
-                        </tr>
-                        <c:forEach items="${requestScope.listCustomer}" var="cs">
+                <div class="detail-container">
+                    <form class="detail-information" action="edit" method="POST">
+                        <div class="detail-name">
+                            <input type="text" name="name" id="name" value="${requestScope.customer.name}">
+                            <td><i class='bx bx-edit-alt'></i></td>
+                        </div>
+                        <table class="table">
                             <tr>
-                                <td class="text-center">${cs.name}</td>
-                                <td class="text-center">${cs.dob}</td>
-                                <td class="text-center">${cs.phone}</td>
-                                <td class="text-center"><a href="../customer/information?id=${cs.id}" class="button-link"><i class='bx bx-info-circle'></i></a>
+                                <td>Giới tính</td>
+                                <td class="input-radio">
+                                    <input type="radio" 
+                                           <c:if test="${requestScope.customer.gender}">
+                                               checked="checked"
+                                           </c:if>
+                                               name="gender" id="" value="1">Male
+                                    <input type="radio" 
+                                           <c:if test="${!requestScope.customer.gender}">
+                                               checked="checked"
+                                           </c:if>
+                                               name="gender" id="" value="0">Female
+                                </td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh</td>
+                                <td><input type="date" name="dob" id="" value="${requestScope.customer.dob}"></td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại</td>
+                                <td><input type="text" name="phone" id="" value="${requestScope.customer.phone}"></td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>CMND/CCCD</td>
+                                <td><input type="text" name="identity" id="" value="${requestScope.customer.identity}"></td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><input type="text" name="email" id="" value="${requestScope.customer.email}"></td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>Nơi ở</td>
+                                <td><input type="text" name="address" id="" value="${requestScope.customer.address}"></td>
+                                <td><i class='bx bx-edit-alt'></i></td>
+                            </tr>
+                            <tr>
+                                <td>Ngày thuê</td>
+                                <td>${requestScope.customer.hireDate}</td>
+                            </tr>
+                            <tr>
+                                <td>Tên phòng</td>
+                                <td>${requestScope.customer.room.name}</td>
+                            </tr>
+                            <tr>
+                                <td>Tên tài khoản</td>
+                                <td>${requestScope.customer.account.username}</td>
+                            </tr>
+                            <tr>
+                                <td>Mật khẩu</td>
+                                <td>${requestScope.customer.account.password}</td>
+                            </tr>
+                            <tr>
+                                <td>Trạng thái</td>
+                                <td>
+                                    <c:if test="${requestScope.customer.status}">
+                                        <span style="color: green">Đang thuê</span>
+                                    </c:if>
+                                    <c:if test="${!requestScope.customer.status}">
+                                        <span style="color: red">Dừng thuê</span>
+                                    </c:if>
                                 </td>
                             </tr>
-                        </c:forEach>
-                    </table>
-                </div>
-            </div>
-            <div class="detail-container">
-                <div class="detail-tittle">
-                    <p>Thiết bị</p>
-                </div>
-                <div class="row detail-content-conduct">
-                    <div class="col-lg-5 detail-conduct">
-                        <table class="table">
-                            <tr class="table-light">
-                                <th class="text-center">STT</th>
-                                <th class="text-center">Thiết bị trong phòng</th>
-                                <th class="text-center">Số lượng</th>
-                            </tr>
-                            <c:set var="stt" scope="page" value="0"/>
-                            <c:forEach items="${requestScope.listConductDetail}" var="cd">
-                                <c:if test="${cd.conduct.conductType.id == 1}">
-                                    <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
-                                    <tr>
-                                        <td class="text-center">${pageScope.stt}</td>
-                                        <td class="text-center">${cd.conduct.name}</td>
-                                        <td class="text-center">${cd.quantity}</td>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
                         </table>
-                    </div>
-                    <div class="col-lg-5 detail-conduct">
-                        <table class="table">
-                            <tr class="table-light">
-                                <th class="text-center">STT</th>
-                                <th class="text-center">Thiết bị trong nhà vệ sinh</th>
-                                <th class="text-center">Số lượng</th>
-                            </tr>
-                            <c:set var="stt" scope="page" value="0"/>
-                            <c:forEach items="${requestScope.listConductDetail}" var="cd">
-                                <c:if test="${cd.conduct.conductType.id == 2}">
-                                    <c:set var="stt" scope="page" value="${pageScope.stt + 1}"/>
-                                    <tr>
-                                        <td class="text-center">${pageScope.stt}</td>
-                                        <td class="text-center">${cd.conduct.name}</td>
-                                        <td class="text-center">${cd.quantity}</td>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </table>
-                    </div>
+                        <div class="detail-submit">
+                            <input type="hidden" name="idCustomer" value="${requestScope.customer.id}">
+                            <input class="btn btn-primary" type="submit" value="Cập nhật">
+                            <a class="btn btn-danger" href="list" role="button">Hủy</a>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="detail-container">
-                <div class="check-out">
-                    <a class="btn btn-danger button-checkOut" href="checkout?id=${requestScope.contract.id}" role="button">
-                        <span>Check out</span>
-                    </a>
-                </div>
-
             </div>
         </section>
 
@@ -349,6 +309,12 @@
                     let arrowParent = e.target.parentElement.parentElement;
                     arrowParent.classList.toggle("showMenu");
                 });
+            }
+
+
+            function changeWidth() {
+                let inputName = document.getElementById("name");
+                inputName.style.width = inputName.value.length;
             }
         </script>
         <!-- JavaScript Bundle with Popper -->

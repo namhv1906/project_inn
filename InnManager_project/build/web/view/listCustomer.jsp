@@ -256,7 +256,7 @@
                                     <td class="column-action">
                                         <c:if test="${cs.status}">
                                             <span class="button-link" onclick="openFunctionModal(${cs.id})"><i class='bx bx-trash'></i></span>
-                                            <a href="" class="button-link"><i class='bx bx-edit'></i></a>
+                                            <a href="edit?id=${cs.id}" class="button-link"><i class='bx bx-edit'></i></a>
                                             </c:if>
                                     </td>
                                 </tr>

@@ -39,26 +39,18 @@ public class InformationRoomController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {    
         Cookie[] cookies = request.getCookies();
+        String errorAddCustomer = null;
+        String errorCheckout = null;
         if (cookies != null)//not login, some cookies
         {
-            String username = null;
-            String password = null;
             for (Cookie cooky : cookies) {
-                if (cooky.getName().equals("username")) {
-                    username = cooky.getValue();
+                if (cooky.getName().equals("errorAddCustomer")) {
+                    errorAddCustomer = "phòng hết chỗ trống";
                 }
-                if (cooky.getName().equals("password")) {
-                    password = cooky.getValue();
-                }
-            }
-            if (username != null && password != null) {
-                AccountDBContext db = new AccountDBContext();
-                Account account = db.getAccount(username, password);
-                if (account != null) {
-                    request.getSession().setAttribute("account", account);
-                    request.getSession().setMaxInactiveInterval(1800);
+                if (cooky.getName().equals("errorCheckout")) {
+                    errorCheckout = "phòng chưa trả tiền tháng";
                 }
             }
         }
@@ -82,6 +74,8 @@ public class InformationRoomController extends BaseController {
         request.setAttribute("listCustomer", listCustomer);
         request.setAttribute("idRoom", id);
         request.setAttribute("statusRoom", status);
+        request.setAttribute("errorAddCustomer", errorAddCustomer);
+        request.setAttribute("errorCheckout", errorCheckout);    
         request.getRequestDispatcher("../../view/informationRoom.jsp").forward(request, response);
     }
 
