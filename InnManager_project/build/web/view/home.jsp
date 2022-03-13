@@ -218,7 +218,7 @@
             <div class="row detail">
                 <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
                     <div class="content-container">
-                        <a href="">
+                        <a href="room/list">
                             <p class="detail-name">Tổng phòng trọ</p>
                             <div class="detail-infomation">
                                 <h3 class="information-number">${requestScope.totalRoom}</h3>
@@ -229,7 +229,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
                     <div class="content-container">
-                        <a href="">
+                        <a href="room/list?status=1">
                             <p class="detail-name">Phòng đang thuê</p>
                             <div class="detail-infomation">
                                 <h3 class="information-number">${requestScope.totalHireRoom}</h3>
@@ -240,7 +240,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
                     <div class="content-container">
-                        <a href="">
+                        <a href="room/list?status=0">
                             <p class="detail-name">Phòng trống</p>
                             <div class="detail-infomation">
                                 <h3 class="information-number">${requestScope.totalEmptyRoom}</h3>
@@ -251,7 +251,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
                     <div class="content-container">
-                        <a href="">
+                        <a href="customer/list?status=1">
                             <p class="detail-name">Khách hàng thuê</p>
                             <div class="detail-infomation">
                                 <h3 class="information-number">${requestScope.totalHireCustomer}</h3>
@@ -262,7 +262,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 detail-content">
                     <div class="content-container">
-                        <a href="">
+                        <a href="revenue/list">
                             <p class="detail-name">Tổng doanh thu</p>
                             <div class="detail-infomation">
                                 <h3 class="information-number">${requestScope.revenue}</h3>
