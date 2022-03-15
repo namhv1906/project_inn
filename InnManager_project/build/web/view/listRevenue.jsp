@@ -245,9 +245,7 @@
                             <th class="text-center">Đến ngày</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
-                        <c:set var="revenue" scope="page" value="0"/>
-                        <c:forEach items="${requestScope.listPaymentHistory}" var="ph">
-                            <c:set var="revenue" scope="page" value="${pageScope.revenue + ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}"/>
+                        <c:forEach items="${requestScope.listPaymentHistoryPaging}" var="ph">
                             <tr>
                                 <td class="text-center align-middle column-information"><span class="button-link btn_open"
                                                                                               onclick="openFunctionModal(${ph.id})"><i class='bx bx-info-circle'></i></span></td>
@@ -259,6 +257,10 @@
                             </tr>
                         </c:forEach>
                     </table>
+                    <c:set var="revenue" scope="page" value="0"/>
+                    <c:forEach items="${requestScope.listPaymentHistory}" var="ph">
+                        <c:set var="revenue" scope="page" value="${pageScope.revenue + ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}"/>
+                    </c:forEach>
                     <div class="result-price" style="width: 30%;">
                         <table class="table">
                             <tr>
@@ -267,6 +269,45 @@
                             </tr>
                         </table>
                     </div>
+                </div>
+            </div>
+            <div class="paging">
+                <div class="paging-content">
+                    <c:if test="${requestScope.indexPage != 1}">
+                        <div class="paging-container left">
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${1}"><span>&lt;&lt;</span></i></a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.indexPage - 1}"><span>&lt;</span></a>
+                            </button>
+                        </div>
+                    </c:if>
+                    <div class="paging-container center">
+                        <c:if test="${requestScope.indexPage - 1 > 0}">
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.indexPage - 1}">${requestScope.indexPage - 1}</a>
+                            </button>
+                        </c:if>
+                        <button class="paging-button" type="button">
+                            <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.indexPage}"><span>${requestScope.indexPage}</span></a>
+                        </button>
+                        <c:if test="${requestScope.indexPage + 1 <= requestScope.numberPage}">
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.indexPage + 1}"><span>${requestScope.indexPage + 1}</span></a>
+                            </button>
+                        </c:if>
+                    </div>
+                    <c:if test="${requestScope.indexPage != requestScope.numberPage}">
+                        <div class="paging-container right">
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.indexPage + 1}">&gt;</a>
+                            </button>
+                            <button class="paging-button" type="button">
+                                <a href="list?fromDate=${requestScope.fromDate}&toDate=${requestScope.toDate}&search=${requestScope.search}&page=${requestScope.numberPage}">&gt;&gt;</a>
+                            </button>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </section>

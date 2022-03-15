@@ -22,6 +22,7 @@ import model.Contract;
 import model.Customer;
 import model.Payment;
 import model.PaymentHistory;
+import model.Room;
 
 /**
  *
@@ -56,8 +57,25 @@ public class ListRevenueController extends BaseController {
         }
         PaymentHistoryDBContext paymentHistorySql = new PaymentHistoryDBContext();
         ArrayList<PaymentHistory> listPaymentHistory = paymentHistorySql.getListPaymentHistoryByCondition(fromDateString, toDateString, searchString);
+        //phan trang
+        String indexPageString = request.getParameter("page");
+        int pageSize = 6;
+        int size = listPaymentHistory.size();
+        int numberPage = (size % pageSize == 0) ? (size / pageSize) : ((size/pageSize) + 1);
+        int indexPage;
+        if(indexPageString == null){
+            indexPage = 1;
+        }else{
+            indexPage = Integer.parseInt(indexPageString);
+        }
+        int start =(indexPage - 1) * pageSize;
+        int end = Math.min(indexPage * pageSize, size);
+        ArrayList<PaymentHistory> listPaymentHistoryPaging = paymentHistorySql.getListPaymentHistoryPaging(listPaymentHistory, start, end);
                
         request.setAttribute("listPaymentHistory", listPaymentHistory);
+        request.setAttribute("listPaymentHistoryPaging", listPaymentHistoryPaging);
+        request.setAttribute("indexPage", indexPage);
+        request.setAttribute("numberPage", numberPage);
         request.setAttribute("fromDate", fromDateString);
         request.setAttribute("toDate", toDateString);
         request.setAttribute("search", searchString);

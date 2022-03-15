@@ -226,6 +226,45 @@ and open the template in the editor.
   text-align: center;
 }
 
+.paging{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.paging .paging-content{
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.paging .paging-content .paging-container{
+  display: inline-block;
+}
+
+.paging .paging-content .paging-container .paging-button{
+  border: 0.5px solid rgba(128, 128, 128,0.3);
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 255, 255);
+  transition: background-color 1ms linear;
+}
+
+.paging .paging-content .paging-container .paging-button a{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(128, 128, 128,0.8);
+}
+
+.paging .paging-content .paging-container .paging-button:hover{
+  background-color: rgba(128, 128, 128,0.3);
+}
+
+.paging .paging-content .paging-container .paging-button:hover a{
+  color: rgba(0, 0, 0,0.8);
+}
+
 .model-form {
   position: fixed;
   top: 50%;

@@ -286,13 +286,13 @@
                                 <td class="color-part">
                                     <div style="background-color: red;" class="colorr"></div>
                                 </td>
-                                <td class="content-part">Phòng đang thuê</td>
+                                <td class="content-part">Phòng đang thuê: ${requestScope.percent}%</td>
                             </tr>
                             <tr class="part">
                                 <td class="color-part">
                                     <div style="background-color: blue;" class="colorr"></div>
                                 </td>
-                                <td class="content-part">Phòng trống</td>
+                                <td class="content-part">Phòng trống: ${100 - requestScope.percent}%</td>
                             </tr>
                         </table>
                     </div>

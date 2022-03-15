@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import model.Bill;
 import model.Payment;
 import model.PaymentHistory;
+import model.Room;
 
 /**
  *
@@ -110,6 +111,14 @@ public class PaymentHistoryDBContext extends DBContext{
             Logger.getLogger(PaymentHistoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+    
+    public ArrayList<PaymentHistory> getListPaymentHistoryPaging(ArrayList<PaymentHistory> list,int start,int end){
+        ArrayList<PaymentHistory> listPaymentHistory = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            listPaymentHistory.add(list.get(i));
+        }
+        return listPaymentHistory;
     }
     
 }

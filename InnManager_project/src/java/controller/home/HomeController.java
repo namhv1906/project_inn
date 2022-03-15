@@ -81,6 +81,7 @@ public class HomeController extends BaseController {
         request.setAttribute("totalHireRoom", totalHireRoom);
         request.setAttribute("totalHireCustomer", totalHireCustomer);
         request.setAttribute("revenue", revenuePrice);
+        request.setAttribute("percent", percent);
         request.setAttribute("deg", deg);
         request.getRequestDispatcher("../view/home.jsp").forward(request, response);
     }
