@@ -209,9 +209,16 @@
         <section class="content-section">
             <div class="detail">
                 <div class="detail-container">
-                    <div class="detail-avata">
-                        <img src="../../image/female.png" alt="">
-                    </div>
+                    <c:if test="${requestScope.customer.gender}">
+                        <div class="detail-avata">
+                            <img src="../../image/male.png" alt="">
+                        </div>
+                    </c:if>
+                    <c:if test="${!requestScope.customer.gender}">
+                        <div class="detail-avata">
+                            <img src="../../image/female.png" alt="">
+                        </div>
+                    </c:if>
                 </div>
                 <div class="detail-container">
                     <div class="detail-information">

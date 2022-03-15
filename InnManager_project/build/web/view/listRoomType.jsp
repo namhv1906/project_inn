@@ -40,7 +40,7 @@
                 justify-content: center;
                 transition: all 0.5s ease;
             }
-            
+
             .sidebar .nav-links .bill::before{
                 content: "${sessionScope.listPaymentToPay.size()}";
                 width: 20px;
@@ -73,7 +73,7 @@
                     align-items: center;
                     justify-content: center;
                 }
-                
+
                 .sidebar .nav-links .bill::before{
                     width: 20px;
                     height: 20px;
@@ -231,12 +231,14 @@
                             <c:forEach items="${requestScope.listRoomType}" var="rt">
                                 <tr>
                                     <td class="text-center">${rt.name}</td>
-                                    <td class="text-center">${rt.price}</td>
+                                    <td class="text-center">${rt.priceLong}</td>
                                     <td class="text-center">${rt.area}m2</td>
                                     <td class="text-center">${rt.quantity}</td>
                                     <td class="column-action">
-                                        <a href="" class="button-link"><i class='bx bx-trash'></i></a>
-                                        <a href="" class="button-link"><i class='bx bx-edit'></i></a>
+                                        <c:if test="${rt.room.size() == 0 && !rt.status}">
+                                            <span class="button-link" onclick="openFunctionModal(${rt.id})"><i class='bx bx-trash'></i></span>
+                                        </c:if>
+                                        <a href="edit?id=${rt.id}" class="button-link"><i class='bx bx-edit'></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -246,7 +248,12 @@
             </div>
         </section>
 
-
+        <div class="model-delete">
+            <div class="model-form hidden">
+                <button class="btn_close" type="button" onclick="closeFunctionModal()">&times;</button>
+            </div>
+            <div class="overlay hidden"></div>
+        </div>
 
         <script>
             let arrow = document.querySelectorAll(".arrow");
@@ -256,7 +263,62 @@
                     arrowParent.classList.toggle("showMenu");
                 });
             }
+            const modal = document.querySelector('.model-form');
+            const overlay = document.querySelector('.overlay');
+//            const btnOpen = document.querySelectorAll('.btn_open');
+
+
+            //*Modal window
+//            const openModal = function (e) {
+//                e.preventDefault();
+//                modal.classList.remove('hidden');
+//                overlay.classList.remove('hidden');
+//            };
+            function openFunctionModal(idRoomType) {
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                $.ajax({
+                    url: "/InnManager_project/deleteRoomType",
+                    type: "get",
+                    data: {
+                        idRoomType: idRoomType
+                    },
+                    success: function (response) {
+                        modal.innerHTML += response;
+                    }
+                });
+            }
+
+            function closeFunctionModal() {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            }
+
+
+            const closeModal = function () {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                var child = document.getElementById("model-change");
+                modal.removeChild(child);
+            };
+
+//            for (var i = 0; i < btnOpen.length; i++) {
+//                btnOpen[i].addEventListener('click', openModal);
+//            }
+//            const btnClose = document.querySelector('.btn_close');
+//            btnClose.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
         </script>
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

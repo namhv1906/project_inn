@@ -108,6 +108,14 @@
         <servlet-name>EditCustomerController</servlet-name>
         <servlet-class>controller.EditCustomerController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditRoomTypeController</servlet-name>
+        <servlet-class>controller.EditRoomTypeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRoomTypeController</servlet-name>
+        <servlet-class>controller.DeleteRoomTypeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -199,6 +207,14 @@
     <servlet-mapping>
         <servlet-name>EditCustomerController</servlet-name>
         <url-pattern>/admin/customer/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRoomTypeController</servlet-name>
+        <url-pattern>/admin/roomtype/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRoomTypeController</servlet-name>
+        <url-pattern>/admin/roomtype/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

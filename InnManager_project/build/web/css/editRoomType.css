@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Feb 27, 2022, 12:32:49 PM
+    Created on : Mar 15, 2022, 9:45:24 AM
     Author     : firem
 */
 
@@ -166,121 +166,86 @@ and open the template in the editor.
   transition: all 0.5s ease;
 }
 
+.successful{
+  border-radius: 20px;
+  background-color: rgba(68,160,80,255);
+  color: rgba(219,251,228,255);
+  display: flex;
+  align-items: center;
+}
+
+.successful span{
+  padding-left: 15px;
+}
+
+.successful a{
+  color: rgba(219,251,228,255);
+  padding-left: 5px;
+}
+
 .detail{
-    margin-top: 10px;
+  width: 60%;
+  margin-top: 15px;
 }
 
-.detail .detail-container-search{
-    display: flex;
-    align-items: center;
-    justify-content: right;
+.detail .detail-content .detail-container{
+  margin-bottom: 15px;
+  padding-left: 20px;
 }
 
-.detail .detail-container-search .detail-search{
-    width: 40%;
-    position: relative;
+.detail .detail-content .detail-container label{
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
 }
 
-.detail .detail-container-search .detail-search .search-input{
-    width: 100%;
-}
-
-.detail .detail-container-search .detail-search .search-button{
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    border: none;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-}
-
-.detail .detail-container-information{
-    margin-top: 10px;
-}
-
-.detail .detail-container-information .detail-information .button-link{
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  text-decoration: none;
-  border-radius: 100%;
-  box-shadow: 1px 1px 1px 1px rgba(128, 128, 128,0.3);
-  text-align: center;
-}
-
-.detail .detail-container-information .detail-information .column-action{
-  text-align: end;
-}
-
-.detail .detail-container-information .detail-information .column-action a{
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-.model-form {
-  position: fixed;
-  top: 50%;
-  bottom: 50%;
-  left: 50%;
-  height: 15rem;
-  transform: translate(-50%, -50%);
-  max-width: 50rem;
-  background-color: #f3f3f3;
-  padding: 2rem 3rem;
-  z-index: 1000;
-  opacity: 0.8;
-  border-radius: 10px;
-  transition: all 0.5s;
-}
-
-.model-form #model-change p {
-  color: rgb(82, 43, 43);
-  font-weight: 600;
-  text-align: justify;
-}
-
-.model-form #model-change .input-number{
-  width: 20%;
-  height: 100%;
-  text-align: center;
-}
-
-.model-form #model-change .button-submit-form{
-  text-align: center;
-  margin-top: 30px;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.detail .detail-content .detail-container .detail-input{
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 200;
-  transition: all 0.5s;
+  border-radius: 20px;
+  border: 1px solid black;
 }
 
-.hidden {
-  visibility: hidden;
-  opacity: 0;
+.detail .detail-content .detail-container .detail-name-error{
+  color: rgb(255, 0, 0,0.7);
+  font-size: 1rem;
+  margin-bottom: 0;
 }
 
-.btn_close {
-  cursor: pointer;
+.detail .detail-content .detail-button-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail .detail-content .detail-container .detail-submit{
+  padding: 0.375rem 0.75rem;
+  height: 38px;
+  background-color: rgba(0,106,0,255);
   border: none;
-  background: none;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail .detail-content .detail-container .detail-submit i{
+  padding-right: 5px;
+}
+
+.detail .detail-content .detail-container .detail-submit input{
+  border: none;
+  background-color: inherit;
   color: inherit;
-  font-family: inherit;
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  font-size: 3rem;
+}
+
+.detail .detail-content .detail-container .check-out{
+  padding-left: 20px;
+}
+
+.detail .detail-content .detail-container .check-out a{
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {

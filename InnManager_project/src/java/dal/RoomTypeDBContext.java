@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Customer;
+import model.Room;
 import model.RoomType;
 
 /**
@@ -138,6 +140,49 @@ public class RoomTypeDBContext extends DBContext{
                     Logger.getLogger(RoomTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    }
+    
+    public void updateRoomType(RoomType rt){
+        String sql = "update RoomType set [Name] = ?,\n" +
+                "       Quantity = ? ,\n" +
+                "       Area = ? ,\n" +
+                "       Price = ? \n" +
+                "where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, rt.getName());
+            stm.setInt(2, rt.getQuantity());
+            stm.setDouble(3, rt.getArea());
+            stm.setDouble(4, rt.getPrice());
+            stm.setInt(5, rt.getId());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean checkQuantityCustomer(int id,int quantity){
+        RoomDBContext roomSql = new RoomDBContext();
+        ArrayList<Room> listRoom = roomSql.getListRoomByRoomTypeId(id);
+        CustomerDBContext customerSql = new CustomerDBContext();
+        for (Room room : listRoom) {
+            ArrayList<Customer> listCustomer = customerSql.getListCustomerByRoomId(room.getId());
+            if(listCustomer.size() > quantity){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void deleteRoomType(int id){
+        String sql = "delete RoomType where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

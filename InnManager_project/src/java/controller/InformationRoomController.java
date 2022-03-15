@@ -46,6 +46,8 @@ public class InformationRoomController extends BaseController {
         if (cookies != null)//not login, some cookies
         {
             for (Cookie cooky : cookies) {
+                System.out.println(cooky.getName());
+                System.out.println(cooky.getValue());
                 if (cooky.getName().equals("errorAddCustomer")) {
                     errorAddCustomer = "phòng hết chỗ trống";
                 }

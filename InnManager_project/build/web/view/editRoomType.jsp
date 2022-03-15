@@ -1,11 +1,12 @@
 <%-- 
-    Document   : informationCutomer
-    Created on : Mar 3, 2022, 8:49:31 PM
+    Document   : editRoomType
+    Created on : Mar 15, 2022, 9:45:03 AM
     Author     : firem
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
@@ -13,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
-        <link rel="stylesheet" href="../../css/informationCustomer.css">
+        <link rel="stylesheet" href="../../css/editRoomType.css">
         <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <!-- boostrap link -->
@@ -121,24 +122,24 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="../roomtype/list">
+                        <a href="list">
                             <i class='bx bx-book-alt'></i>
                             <span class="link_name">Loại phòng</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="../roomtype/list">Loại phòng</a></li>
-                        <li><a href="../roomtype/add">Thêm phòng</a></li>
+                        <li><a class="link_name" href="list">Loại phòng</a></li>
+                        <li><a href="add">Thêm phòng</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="list">
+                    <a href="../customer/list">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Khách trọ</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="list">Khách trọ</a></li>
+                        <li><a class="link_name" href="../customer/list">Khách trọ</a></li>
                     </ul>
                 </li>
                 <li
@@ -203,83 +204,63 @@
         </div>
         <section class="home-section">
             <div class="home-content">
-                <span class="text">Thông tin khách hàng</span>
+                <span class="text">Tạo kiểu phòng trọ mới</span>
             </div>
         </section>
         <section class="content-section">
+            <c:if test="${requestScope.successful != null && requestScope.successful == 1}">
+                <div class="successful">
+                    <span>Chỉnh sửa kiểu phòng trọ thành công.</span>
+                    <a href="list">Nhấn vào đây để xem danh sách kiểu phòng vừa chỉnh sửa</a>
+                </div>
+            </c:if>
             <div class="detail">
-                <div class="detail-container">
-                    <c:if test="${requestScope.customer.gender}">
-                        <div class="detail-avata">
-                            <img src="../../image/male.png" alt="">
-                        </div>
-                    </c:if>
-                    <c:if test="${!requestScope.customer.gender}">
-                        <div class="detail-avata">
-                            <img src="../../image/female.png" alt="">
-                        </div>
-                    </c:if>
-                </div>
-                <div class="detail-container">
-                    <div class="detail-information">
-                        <div class="detail-name">
-                            <p>${requestScope.customer.name}</p>
-                        </div>
-                        <table class="table">
-                            <tr>
-                                <td>Giới tính</td>
-                                <td>${requestScope.customer.gender ? "Male" : "Female"}</td>
-                            </tr>
-                            <tr>
-                                <td>Ngày sinh</td>
-                                <td>${requestScope.customer.dob}</td>
-                            </tr>
-                            <tr>
-                                <td>Số điện thoại</td>
-                                <td>${requestScope.customer.phone}</td>
-                            </tr>
-                            <tr>
-                                <td>CMND/CCCD</td>
-                                <td>${requestScope.customer.identity}</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>${requestScope.customer.email}</td>
-                            </tr>
-                            <tr>
-                                <td>Nơi ở</td>
-                                <td>${requestScope.customer.address}</td>
-                            </tr>
-                            <tr>
-                                <td>Ngày thuê</td>
-                                <td>${requestScope.customer.hireDate}</td>
-                            </tr>
-                            <tr>
-                                <td>Tên tài khoản</td>
-                                <td>${requestScope.customer.account.username}</td>
-                            </tr>
-                            <tr>
-                                <td>Mật khẩu</td>
-                                <td>${requestScope.customer.account.password}</td>
-                            </tr>
-                            <tr>
-                                <td>Tên phòng</td>
-                                <td>${requestScope.customer.room.name}</td>
-                            </tr>
-                            <tr>
-                                <td>Trạng thái</td>
-                                <td>
-                                    <c:if test="${requestScope.customer.status}">
-                                        <span style="color: green">Đang thuê</span>
-                                    </c:if>
-                                    <c:if test="${!requestScope.customer.status}">
-                                        <span style="color: red">Dừng thuê</span>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </table>
+                <form class="detail-content" action="edit" method="POST">
+                    <div class="detail-container">
+                        <label for="name">Tên kiểu phòng trọ</label>
+                        <input type="text" name="name" id="name" class="detail-input" value="${requestScope.roomType.name}">
+                        <c:if test="${requestScope.errorName != null}">
+                            </br><p class="detail-name-error">${requestScope.errorName}</p>
+                        </c:if>
                     </div>
-                </div>
+                    <div class="detail-container">
+                        <label for="price">Giá phòng:</label>
+                        <input type="text" name="price" id="price" class="detail-input" value="${requestScope.roomType.priceLong}">
+                        <c:if test="${requestScope.errorPrice != null}">
+                            </br><p class="detail-name-error">${requestScope.errorPrice}</p>
+                        </c:if>
+                    </div>
+                    <div class="detail-container">
+                        <label for="area">Diện tích</label>
+                        <input type="text" name="area" id="area" class="detail-input" value="${requestScope.roomType.area}">
+                        <c:if test="${requestScope.errorArea != null}">
+                            </br><p class="detail-name-error">${requestScope.errorArea}</p>
+                        </c:if>
+                    </div>
+                    <div class="detail-container">
+                        <label for="quantity">Số lượng người ở</label>
+                        <input type="text" name="quantity" id="quantity" class="detail-input" value="${requestScope.roomType.quantity}">
+                        <c:if test="${requestScope.errorQuantity != null}">
+                            </br><p class="detail-name-error">${requestScope.errorQuantity}</p>
+                        </c:if>
+                        <c:if test="${requestScope.errorQuantityCustomer != null}">
+                            </br><p class="detail-name-error">${requestScope.errorQuantityCustomer}</p>
+                        </c:if>
+                    </div>
+                    <div class="detail-container detail-button-link">
+                        <input type="hidden" name="id" value="${requestScope.roomType.id}">
+                        <button class="detail-submit">
+                            <i class='bx bx-plus'></i>
+                            <input type="submit" value="Cập nhật">
+                        </button>
+                        <div class="check-out">
+                            <a class="btn btn-danger button-checkOut" href="list" role="button">
+                                <span>Hủy</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </section>
 

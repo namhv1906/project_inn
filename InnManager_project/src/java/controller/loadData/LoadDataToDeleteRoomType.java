@@ -3,27 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.loadData;
 
-import controller.base.BaseController;
-import dal.ContractDBContext;
-import dal.RoomDBContext;
-import dal.RoomTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Room;
-import model.RoomType;
 
 /**
  *
  * @author firem
  */
-public class ListRoomTypeController extends BaseController {
+@WebServlet(name = "LoadDataToDeleteRoomType", urlPatterns = {"/deleteRoomType"})
+public class LoadDataToDeleteRoomType extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,25 +31,21 @@ public class ListRoomTypeController extends BaseController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
-        if(search == null){
-            search = "";
-        }
-        RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
-        ArrayList<RoomType> listRoomType = roomTypeSql.getListBySearch(search);
-        RoomDBContext roomSql = new RoomDBContext();
-        ContractDBContext contractSql = new ContractDBContext();
-        for (RoomType rt : listRoomType) {
-            ArrayList<Room> listRoom = roomSql.getListRoomByRoomTypeId(rt.getId());
-            rt.setRoom(listRoom);
-            if(contractSql.getContractByIdRoom(rt.getId(), 0) == null){
-                rt.setStatus(false);
-            }else{
-                rt.setStatus(true);
-            }
-        }
-        request.setAttribute("listRoomType", listRoomType);
-        request.getRequestDispatcher("../../view/listRoomType.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String idString = request.getParameter("idRoomType");
+        int id = Integer.parseInt(idString);
+        PrintWriter out = response.getWriter();
+        out.println("<form id=\"model-change\" action=\"delete\" method=\"Get\">\n" +
+    "                    <h2 style=\"text-align: center;padding-right: 10px;\">Xóa kiểu phòng</h2>\n" +
+    "                    </br>\n" +
+    "                    </br>\n" +
+    "                    </br>\n" +
+    "                    </br>\n" +
+    "                    <div class=\"button-submit-form\">\n" +
+    "                        <input type=\"hidden\" name=\"id\" value=\"" + id + "\">\n" +
+    "                        <input class=\"btn btn-primary\" type=\"submit\" value=\"Xác nhận\">\n" +
+    "                    </div>\n" +
+    "                </form>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,7 +58,7 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -81,7 +72,7 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

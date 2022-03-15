@@ -5,25 +5,20 @@
  */
 package controller;
 
-import controller.base.BaseController;
-import dal.ContractDBContext;
 import dal.RoomDBContext;
 import dal.RoomTypeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Room;
-import model.RoomType;
 
 /**
  *
  * @author firem
  */
-public class ListRoomTypeController extends BaseController {
+public class DeleteRoomTypeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,25 +31,13 @@ public class ListRoomTypeController extends BaseController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String search = request.getParameter("search");
-        if(search == null){
-            search = "";
-        }
-        RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
-        ArrayList<RoomType> listRoomType = roomTypeSql.getListBySearch(search);
+        String idString  = request.getParameter("id");
+        int id = Integer.parseInt(idString);
         RoomDBContext roomSql = new RoomDBContext();
-        ContractDBContext contractSql = new ContractDBContext();
-        for (RoomType rt : listRoomType) {
-            ArrayList<Room> listRoom = roomSql.getListRoomByRoomTypeId(rt.getId());
-            rt.setRoom(listRoom);
-            if(contractSql.getContractByIdRoom(rt.getId(), 0) == null){
-                rt.setStatus(false);
-            }else{
-                rt.setStatus(true);
-            }
-        }
-        request.setAttribute("listRoomType", listRoomType);
-        request.getRequestDispatcher("../../view/listRoomType.jsp").forward(request, response);
+        roomSql.deleteRoomByRoomTypeId(id);
+        RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
+        roomTypeSql.deleteRoomType(id);
+        response.sendRedirect("list");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,7 +50,7 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -81,7 +64,7 @@ public class ListRoomTypeController extends BaseController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

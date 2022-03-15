@@ -53,7 +53,8 @@ public class RoomDBContext extends DBContext {
         String sql = "select r.Id,r.[Name],r.[Floor],r.[Status],t.Id as TypeId,t.[Name] as TypeName,t.Price,t.Area,t.Quantity\n"
                 + "from Room as r inner join RoomType as t\n"
                 + "on r.TypeId = t.Id\n"
-                + "where r.[Name] like ?\n";
+                + "where r.[Name] like ?\n"
+                + "order by r.[Name]";
         if(type > -1){
             sql += "and r.TypeId = " + type + " ";
         }
@@ -263,6 +264,48 @@ public class RoomDBContext extends DBContext {
     
     public void updateRoomForDeactive(int id){
         String sql = "update Room set [Status] = 0 where Id = ? ";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ArrayList<Room> getListRoomByRoomTypeId(int id) {
+        String sql = "select r.Id,r.[Name],r.[Floor],r.[Status],t.Id as TypeId,t.[Name] as TypeName,t.Price,t.Area,t.Quantity\n"
+                + "from Room as r inner join RoomType as t\n"
+                + "on r.TypeId = t.Id\n"
+                + "where t.Id = ? and r.[Status] = 1 ";
+        ArrayList<Room> listRoom = new ArrayList<>();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Room room = new Room();
+                room.setId(rs.getInt("Id"));
+                room.setName(rs.getString("Name"));
+                room.setFloor(rs.getInt("Floor"));
+                room.setStatus(rs.getBoolean("Status"));
+                RoomType rt = new RoomType();
+                rt.setId(rs.getInt("TypeId"));
+                rt.setName(rs.getString("TypeName"));
+                rt.setPrice(rs.getDouble("Price"));
+                rt.setArea(rs.getDouble("Area"));
+                rt.setQuantity(rs.getInt("Quantity"));
+                room.setRoomType(rt);
+                listRoom.add(room);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listRoom;
+    }
+    
+    public void deleteRoomByRoomTypeId(int id){
+        String sql = "delete Room where TypeId = ? ";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);

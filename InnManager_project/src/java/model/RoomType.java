@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author firem
@@ -15,8 +17,11 @@ public class RoomType {
     private int quantity;
     private double area;
     private double price;
+    private ArrayList<Room> room;
+    private boolean status;
 
     public RoomType() {
+        room = new ArrayList<>();
     }
 
     public int getId() {
@@ -62,4 +67,22 @@ public class RoomType {
     public long getPriceLong(){
         return (long)price;
     }
+
+    public ArrayList<Room> getRoom() {
+        return room;
+    }
+
+    public void setRoom(ArrayList<Room> room) {
+        this.room = room;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    
 }
