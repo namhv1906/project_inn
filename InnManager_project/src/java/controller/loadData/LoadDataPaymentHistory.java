@@ -66,11 +66,11 @@ public class LoadDataPaymentHistory extends HttpServlet {
             "                    </tr>");
                 }
                 out.println("</table>");
-                total += ph.getPayment().getContract().getRoom().getRoomType().getPrice() + totalService;
+                total += ph.getPayment().getContract().getContractDetail().getPrice() + totalService;
                 out.println("<table class=\"table\">\n" +
             "                    <tr>\n" +
             "                        <td>Tiền phòng</td>\n" +
-            "                        <td>" + ph.getPayment().getContract().getRoom().getRoomType().getPrice() + "</td>\n" +
+            "                        <td>" + ph.getPayment().getContract().getContractDetail().getPrice() + "</td>\n" +
             "                    </tr>\n" +
             "                    <tr>\n" +
             "                        <td>Tiền dịch vụ</td>\n" +

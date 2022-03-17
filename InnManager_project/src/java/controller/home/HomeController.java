@@ -64,7 +64,7 @@ public class HomeController extends BaseController {
         ArrayList<PaymentHistory> listPaymentHistory = paymentHistorySql.getListPaymentHistory();
         double revenue = 0;
         for (PaymentHistory ph : listPaymentHistory) {
-            revenue += ph.getBill().getPrice() + ph.getPayment().getContract().getRoom().getRoomType().getPrice();
+            revenue += ph.getBill().getPrice() + ph.getPayment().getContract().getContractDetail().getPrice();
             if(!ph.getPayment().getContract().isStatus()){
                 revenue += ph.getPayment().getContract().getPriceConduct();
                 revenue -= ph.getPayment().getContract().getDeposit();

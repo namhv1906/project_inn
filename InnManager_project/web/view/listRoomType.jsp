@@ -24,6 +24,22 @@
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            .model-form {
+                position: fixed;
+                top: 50%;
+                bottom: 50%;
+                left: 50%;
+                height: 18rem;
+                transform: translate(-50%, -50%);
+                max-width: 50rem;
+                background-color: #f3f3f3;
+                padding: 2rem 3rem;
+                z-index: 1000;
+                opacity: 0.8;
+                border-radius: 10px;
+                transition: all 0.5s;
+            }
+            
             .sidebar .nav-links .notification::before{
                 content: "${sessionScope.listPaymentToCreate.size()}";
                 width: 20px;
@@ -237,7 +253,7 @@
                                     <td class="column-action">
                                         <c:if test="${rt.room.size() == 0 && !rt.status}">
                                             <span class="button-link" onclick="openFunctionModal(${rt.id})"><i class='bx bx-trash'></i></span>
-                                        </c:if>
+                                            </c:if>
                                         <a href="edit?id=${rt.id}" class="button-link"><i class='bx bx-edit'></i></a>
                                     </td>
                                 </tr>

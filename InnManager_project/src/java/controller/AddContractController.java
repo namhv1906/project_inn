@@ -9,6 +9,7 @@ import controller.base.BaseController;
 import dal.AccountDBContext;
 import dal.ConductDBContext;
 import dal.ContractDBContext;
+import dal.ContractDetailDBContext;
 import dal.CustomerDBContext;
 import dal.PaymentDBContext;
 import dal.RoomDBContext;
@@ -195,6 +196,11 @@ public class AddContractController extends BaseController {
             paymentSql.insertPayment(pm);
             //update status room
             roomSql.updateRoomForActive(idRoom);
+            //add contractDetail
+            Room roomById = roomSql.getRoomById(idRoom);
+            ContractDetailDBContext contractDetailSql = new ContractDetailDBContext();
+            contractDetailSql.insertContractDetail(contractId, roomById.getRoomType().getPrice());
+            
             flag = true;
         }
         if(flag){

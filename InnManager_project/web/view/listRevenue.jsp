@@ -250,7 +250,7 @@
                                 <td class="text-center align-middle column-information"><span class="button-link btn_open"
                                                                                               onclick="openFunctionModal(${ph.id})"><i class='bx bx-info-circle'></i></span></td>
                                 <td class="text-center align-middle">${ph.payment.contract.room.name}</td>
-                                <td class="text-center align-middle">${ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}</td>
+                                <td class="text-center align-middle">${ph.bill.priceLong + ph.payment.contract.contractDetail.priceLong}</td>
                                 <td class="text-center align-middle">${ph.fromDate}</td>
                                 <td class="text-center align-middle">${ph.toDate}</td>
                                 <td class="text-center"><a class="btn btn-primary" href="../room/information?id=${ph.payment.contract.room.id}&status=${ph.payment.contract.status?"1":"0"}" role="button">Xem phòng</a></td>
@@ -259,7 +259,7 @@
                     </table>
                     <c:set var="revenue" scope="page" value="0"/>
                     <c:forEach items="${requestScope.listPaymentHistory}" var="ph">
-                        <c:set var="revenue" scope="page" value="${pageScope.revenue + ph.bill.priceLong + ph.payment.contract.room.roomType.priceLong}"/>
+                        <c:set var="revenue" scope="page" value="${pageScope.revenue + ph.bill.priceLong + ph.payment.contract.contractDetail.priceLong}"/>
                     </c:forEach>
                     <div class="result-price" style="width: 30%;">
                         <table class="table">

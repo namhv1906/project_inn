@@ -16,6 +16,7 @@ import model.Account;
 import model.Conduct;
 import model.ConductType;
 import model.Contract;
+import model.ContractDetail;
 import model.Customer;
 import model.Room;
 import model.RoomType;
@@ -177,12 +178,14 @@ public class ContractDBContext extends DBContext {
                 + "c.IdentityCard,c.Gender,c.[Address],c.Email,c.HireDate as HireDateCustomer,c.[Status] as CustomerStatus,\n"
                 + "t.RoomId,r.[Name] as RoomName,r.[Floor],r.[Status] as RoomStatus,\n"
                 + "r.TypeId,p.[Name] as RoomTypeName,p.Price,p.Area,p.Quantity,\n"
-                + "c.AccountId,a.Username,a.[Password]\n"
+                + "c.AccountId,a.Username,a.[Password],\n"
+                + "d.Id as ContractDetailId,d.PriceRoomType as PriceRoomTypeDetail\n"
                 + "from [Contract] as t\n"
                 + "inner join Customer as c on c.Id = t.CustomerId\n"
                 + "inner join Room as r on r.Id = t.RoomId\n"
                 + "inner join Account as a on a.Id = c.AccountId\n"
                 + "inner join RoomType as p on p.Id = r.TypeId\n"
+                + "inner join ContractDetail as d on d.ContractId = t.Id\n"
                 + "where t.Id = ? ";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -235,6 +238,11 @@ public class ContractDBContext extends DBContext {
                 ct.setRoom(rm);
                 ArrayList<Conduct> list = getListConductByContractId(rs.getInt("Id"));
                 ct.setListConduct(list);
+                
+                ContractDetail contractDetail = new ContractDetail();
+                contractDetail.setId(rs.getInt("ContractDetailId"));
+                contractDetail.setPrice(rs.getDouble("PriceRoomTypeDetail"));
+                ct.setContractDetail(contractDetail);
                 return ct;
             }
         } catch (SQLException ex) {

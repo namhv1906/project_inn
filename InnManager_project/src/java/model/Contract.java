@@ -22,11 +22,13 @@ public class Contract {
     private Customer customer;
     private Room room;
     private ArrayList<Conduct> listConduct;
+    private ContractDetail contractDetail;
 
     public Contract() {
         customer = new Customer();
         room = new Room();
         listConduct = new ArrayList<>();
+        contractDetail = new ContractDetail();
     }
 
     public int getId() {
@@ -100,7 +102,13 @@ public class Contract {
     public void setListConduct(ArrayList<Conduct> listConduct) {
         this.listConduct = listConduct;
     }
-    
-    
+
+    public ContractDetail getContractDetail() {
+        return contractDetail;
+    }
+
+    public void setContractDetail(ContractDetail contractDetail) {
+        this.contractDetail = contractDetail;
+    }
     
 }

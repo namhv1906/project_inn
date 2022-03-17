@@ -53,8 +53,7 @@ public class RoomDBContext extends DBContext {
         String sql = "select r.Id,r.[Name],r.[Floor],r.[Status],t.Id as TypeId,t.[Name] as TypeName,t.Price,t.Area,t.Quantity\n"
                 + "from Room as r inner join RoomType as t\n"
                 + "on r.TypeId = t.Id\n"
-                + "where r.[Name] like ?\n"
-                + "order by r.[Name]";
+                + "where r.[Name] like ? ";
         if(type > -1){
             sql += "and r.TypeId = " + type + " ";
         }
@@ -64,6 +63,7 @@ public class RoomDBContext extends DBContext {
         if(status > -1){
             sql += "and r.[Status] = " + status + " ";
         }
+        sql += "\norder by r.[Name] ASC";
         ArrayList<Room> listRoom = new ArrayList<>();
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
