@@ -63,7 +63,9 @@ public class EditRoomTypeController extends BaseController {
         
         int successful = 0;
         RoomTypeDBContext roomTypeSql = new RoomTypeDBContext();
-        if(roomTypeSql.getRoomTypeByName(name)){
+        RoomType roomType = roomTypeSql.getRoomTypeById(id);
+        
+        if(!roomType.getName().equals(name) && roomTypeSql.getRoomTypeByName(name)){
             String errorName = "Tên kiểu phòng đã tồn tại";
             request.setAttribute("errorName", errorName);
         }else if(!InputValidation.isDouble(priceString)){
@@ -93,7 +95,7 @@ public class EditRoomTypeController extends BaseController {
             successful = 1;
         }
         
-        RoomType roomType = roomTypeSql.getRoomTypeById(id);
+        roomType = roomTypeSql.getRoomTypeById(id);
         request.setAttribute("roomType", roomType);
         request.setAttribute("successful", successful);
         request.getRequestDispatcher("../../view/editRoomType.jsp").forward(request, response);
