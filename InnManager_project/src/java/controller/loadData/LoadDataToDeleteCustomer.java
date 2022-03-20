@@ -83,7 +83,7 @@ public class LoadDataToDeleteCustomer extends HttpServlet {
             "                </br>\n" +
             "                <p>Thực hiện checkout phòng?</p>\n" +
             "                <div class=\"button-submit-form\">\n" +
-            "                    <a class=\"btn btn-danger button-checkOut\" href=\"#\" role=\"button\">\n" +
+            "                    <a class=\"btn btn-danger button-checkOut\" href=\"../room/checkout?id=" + contract.getId() + "\" role=\"button\">\n" +
             "                        <span>Check out</span>\n" +
             "                    </a>\n" +
             "                </div>");
