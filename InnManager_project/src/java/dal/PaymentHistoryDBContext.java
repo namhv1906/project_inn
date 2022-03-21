@@ -121,4 +121,38 @@ public class PaymentHistoryDBContext extends DBContext{
         return listPaymentHistory;
     }
     
+    public ArrayList<PaymentHistory> getListPaymentHistoryByTime(int year,int month){
+        String sql = "select h.Id,h.PaymentId,h.BillId,h.FromDate,h.ToDate\n" +
+                    "from PaymentHistory as h\n" +
+                    "inner join Payment as p on p.Id = h.PaymentId\n" +
+                    "inner join [Contract] as c on c.Id = p.ContractId\n" +
+                    "inner join Room as r on r.Id = c.RoomId\n" +
+                    "where year(h.FromDate) = ? and MONTH(h.FromDate) = ?";
+        ArrayList<PaymentHistory> list = new ArrayList<>();
+        PaymentDBContext paymentSql = new PaymentDBContext();
+        BillDBContext billSql = new BillDBContext();
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, year);
+            stm.setInt(2, month);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                PaymentHistory ph = new PaymentHistory();
+                ph.setId(rs.getInt("Id"));
+                
+                Payment payment = paymentSql.getPaymentByIdNull(rs.getInt("PaymentId"));
+                ph.setPayment(payment);
+                
+                Bill bill = billSql.getBillByIdBill(rs.getInt("BillId"));
+                ph.setBill(bill);
+                
+                ph.setFromDate(rs.getDate("FromDate"));
+                ph.setToDate(rs.getDate("ToDate"));
+                list.add(ph);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaymentHistoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

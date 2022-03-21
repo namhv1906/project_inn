@@ -21,6 +21,7 @@
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             .statistical .left .statistical-model{
@@ -298,6 +299,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row statistical">
+                <div class="statistical-tittle">
+                    <h2>Biểu đồ doanh thu</h2>
+                </div>
+                <form action="home" method="GET" id="search-input-form" style="padding-left: 40px;">
+                    Năm: <select name="year" onchange="submitSearchForm()">
+                        <c:forEach items="${requestScope.listYear}" var="year">
+                        <option
+                            <c:if test="${requestScope.year == year}">
+                                selected="selected"
+                            </c:if>
+                            value="${year}">${year}</option>
+                        </c:forEach>
+                    </select>
+                </form>
+                <div style="height: 200px; width: 700px; padding-left: 30px;">
+                    <canvas id="myChart" width="100%" height="100%" style="padding-bottom: 20px;"></canvas>
+                </div>
+            </div>
         </section>
 
         <script>
@@ -308,6 +328,41 @@
                     arrowParent.classList.toggle("showMenu");
                 });
             }
+            
+            function submitSearchForm() {
+                document.getElementById("search-input-form").submit();
+            }
+            
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                            label: 'Revenue of month',
+                            data: [{x: 'Tháng 1', y: ${requestScope.listRevenue.get(0)}},
+                                {x: 'Tháng 2', y: ${requestScope.listRevenue.get(1)}},
+                                {x: 'Tháng 3', y: ${requestScope.listRevenue.get(2)}},
+                                {x: 'Tháng 4', y: ${requestScope.listRevenue.get(3)}},
+                                {x: 'Tháng 5', y: ${requestScope.listRevenue.get(4)}},
+                                {x: 'Tháng 6', y: ${requestScope.listRevenue.get(5)}},
+                                {x: 'Tháng 7', y: ${requestScope.listRevenue.get(6)}},
+                                {x: 'Tháng 8', y: ${requestScope.listRevenue.get(7)}},
+                                {x: 'Tháng 9', y: ${requestScope.listRevenue.get(8)}},
+                                {x: 'Tháng 10', y: ${requestScope.listRevenue.get(9)}},
+                                {x: 'Tháng 11', y: ${requestScope.listRevenue.get(10)}},
+                                {x: 'Tháng 12', y: ${requestScope.listRevenue.get(11)}}
+                            ]
+                        }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         </script>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
